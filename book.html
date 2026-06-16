@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book — THRONE Barbershop</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="book.css">
+</head>
+<body class="book-page">
+
+    <!-- ═══ CURSOR ═══ -->
+    <div class="cursor" id="cursor">
+        <div class="cursor__dot"></div>
+        <div class="cursor__circle"></div>
+    </div>
+
+    <!-- ═══ HEADER (simplified) ═══ -->
+    <header class="header header--book" id="header">
+        <a href="index.html" class="header__logo">
+            <span class="header__logo-icon">T</span>
+            <span class="header__logo-text">THRONE</span>
+        </a>
+        <div class="header__actions">
+            <button class="lang-toggle" id="langToggle" aria-label="Switch language">
+                <span class="lang-toggle__active">EN</span>
+                <span class="lang-toggle__sep">/</span>
+                <span class="lang-toggle__inactive">LV</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ═══ BOOKING WIZARD ═══ -->
+    <main class="booking">
+        <div class="booking__grain"></div>
+
+        <!-- Progress bar -->
+        <div class="booking__progress">
+            <div class="booking__steps">
+                <button class="step active" data-step="1"><span class="step__num">1</span><span class="step__label" data-en="Service" data-lv="Pakalpojums">Service</span></button>
+                <div class="step__line"><div class="step__line-fill"></div></div>
+                <button class="step" data-step="2"><span class="step__num">2</span><span class="step__label" data-en="Master" data-lv="Meistars">Master</span></button>
+                <div class="step__line"><div class="step__line-fill"></div></div>
+                <button class="step" data-step="3"><span class="step__num">3</span><span class="step__label" data-en="Date & Time" data-lv="Datums & Laiks">Date & Time</span></button>
+                <div class="step__line"><div class="step__line-fill"></div></div>
+                <button class="step" data-step="4"><span class="step__num">4</span><span class="step__label" data-en="Details" data-lv="Dati">Details</span></button>
+                <div class="step__line"><div class="step__line-fill"></div></div>
+                <button class="step" data-step="5"><span class="step__num">5</span><span class="step__label" data-en="Confirm" data-lv="Apstiprināt">Confirm</span></button>
+            </div>
+        </div>
+
+        <div class="booking__container">
+
+            <!-- ═══ STEP 1: SERVICE ═══ -->
+            <section class="booking__step active" data-step="1">
+                <div class="booking__step-header">
+                    <h2 data-en="Choose Your Service" data-lv="Izvēlies pakalpojumu">Choose Your Service</h2>
+                    <p data-en="Select the experience you desire" data-lv="Izvēlies vēlamo pieredzi">Select the experience you desire</p>
+                </div>
+                <div class="service-select">
+                    <label class="service-option" data-price="25" data-duration="45">
+                        <input type="radio" name="service" value="royal-haircut">
+                        <div class="service-option__card">
+                            <div class="service-option__top">
+                                <h3 data-en="Royal Haircut" data-lv="Karaliskais griezums">Royal Haircut</h3>
+                                <span class="service-option__price">&euro;25</span>
+                            </div>
+                            <p data-en="Precision cut with consultation & styling" data-lv="Precīzs griezums ar konsultāciju un stilizēšanu">Precision cut with consultation & styling</p>
+                            <span class="service-option__time">45 min</span>
+                        </div>
+                    </label>
+                    <label class="service-option featured" data-price="45" data-duration="90">
+                        <input type="radio" name="service" value="full-throne">
+                        <div class="service-option__card">
+                            <span class="service-option__badge" data-en="Most Popular" data-lv="Populārākais">Most Popular</span>
+                            <div class="service-option__top">
+                                <h3 data-en="The Full Throne" data-lv="Pilnais Throne">The Full Throne</h3>
+                                <span class="service-option__price">&euro;45</span>
+                            </div>
+                            <p data-en="Haircut + beard sculpt + hot towel + face treatment" data-lv="Griezums + bārdas veidošana + karstais dvielis + sejas kopšana">Haircut + beard sculpt + hot towel + face treatment</p>
+                            <span class="service-option__time">90 min</span>
+                        </div>
+                    </label>
+                    <label class="service-option" data-price="20" data-duration="30">
+                        <input type="radio" name="service" value="beard-sculpting">
+                        <div class="service-option__card">
+                            <div class="service-option__top">
+                                <h3 data-en="Beard Sculpting" data-lv="Bārdas veidošana">Beard Sculpting</h3>
+                                <span class="service-option__price">&euro;20</span>
+                            </div>
+                            <p data-en="Expert shaping with hot towel & beard oil" data-lv="Profesionāla formēšana ar karsto dvieli un eļļu">Expert shaping with hot towel & beard oil</p>
+                            <span class="service-option__time">30 min</span>
+                        </div>
+                    </label>
+                    <label class="service-option" data-price="30" data-duration="40">
+                        <input type="radio" name="service" value="hot-towel-shave">
+                        <div class="service-option__card">
+                            <div class="service-option__top">
+                                <h3 data-en="Hot Towel Shave" data-lv="Karstā dvieļa skūšana">Hot Towel Shave</h3>
+                                <span class="service-option__price">&euro;30</span>
+                            </div>
+                            <p data-en="Classic straight-razor shave ritual" data-lv="Klasisks bīstamā skuveņa skūšanās rituāls">Classic straight-razor shave ritual</p>
+                            <span class="service-option__time">40 min</span>
+                        </div>
+                    </label>
+                    <label class="service-option" data-price="15" data-duration="20">
+                        <input type="radio" name="service" value="hair-design">
+                        <div class="service-option__card">
+                            <div class="service-option__top">
+                                <h3 data-en="Hair Design" data-lv="Matu dizains">Hair Design</h3>
+                                <span class="service-option__price">&euro;15</span>
+                            </div>
+                            <p data-en="Creative patterns & precision detailing" data-lv="Radoši raksti un precīzas detaļas">Creative patterns & precision detailing</p>
+                            <span class="service-option__time">20 min</span>
+                        </div>
+                    </label>
+                    <label class="service-option" data-price="15" data-duration="30">
+                        <input type="radio" name="service" value="junior-king">
+                        <div class="service-option__card">
+                            <div class="service-option__top">
+                                <h3 data-en="Junior King" data-lv="Jaunais karalis">Junior King</h3>
+                                <span class="service-option__price">&euro;15</span>
+                            </div>
+                            <p data-en="Kids' haircut in a fun environment" data-lv="Bērnu frizūra jautrā vidē">Kids' haircut in a fun environment</p>
+                            <span class="service-option__time">30 min</span>
+                        </div>
+                    </label>
+                </div>
+            </section>
+
+            <!-- ═══ STEP 2: MASTER ═══ -->
+            <section class="booking__step" data-step="2">
+                <div class="booking__step-header">
+                    <h2 data-en="Choose Your Master" data-lv="Izvēlies meistaru">Choose Your Master</h2>
+                    <p data-en="Pick the barber who fits your style" data-lv="Izvēlies bārberi, kas atbilst tavam stilam">Pick the barber who fits your style</p>
+                </div>
+                <div class="master-select">
+                    <label class="master-option">
+                        <input type="radio" name="master" value="marcus">
+                        <div class="master-option__card">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80" alt="Marcus Reid" class="master-option__photo">
+                            <div class="master-option__info">
+                                <h3>Marcus Reid</h3>
+                                <span class="master-option__role" data-en="Senior Barber • 8 years" data-lv="Vecākais bārberis • 8 gadi">Senior Barber • 8 years</span>
+                                <div class="master-option__rating">
+                                    <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M10 1l2.5 6.5H19l-5.3 4 2 6.5L10 14l-5.7 4 2-6.5L1 7.5h6.5z"/></svg>
+                                    <span>4.9</span>
+                                </div>
+                                <p class="master-option__spec" data-en="Classic cuts, hot towel shaves, precision fades" data-lv="Klasiskie griezumi, karstā dvieļa skūšana, precīzās pārejas">Classic cuts, hot towel shaves, precision fades</p>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="master-option">
+                        <input type="radio" name="master" value="alex">
+                        <div class="master-option__card">
+                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=300&q=80" alt="Alex Stone" class="master-option__photo">
+                            <div class="master-option__info">
+                                <h3>Alex Stone</h3>
+                                <span class="master-option__role" data-en="Master Barber • 5 years" data-lv="Meistars bārberis • 5 gadi">Master Barber • 5 years</span>
+                                <div class="master-option__rating">
+                                    <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M10 1l2.5 6.5H19l-5.3 4 2 6.5L10 14l-5.7 4 2-6.5L1 7.5h6.5z"/></svg>
+                                    <span>5.0</span>
+                                </div>
+                                <p class="master-option__spec" data-en="Textured crops, beard sculpting, modern styles" data-lv="Teksturēti griezumi, bārdas veidošana, moderni stili">Textured crops, beard sculpting, modern styles</p>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="master-option">
+                        <input type="radio" name="master" value="daniel">
+                        <div class="master-option__card">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80" alt="Daniel Cruz" class="master-option__photo">
+                            <div class="master-option__info">
+                                <h3>Daniel Cruz</h3>
+                                <span class="master-option__role" data-en="Style Expert • 3 years" data-lv="Stila eksperts • 3 gadi">Style Expert • 3 years</span>
+                                <div class="master-option__rating">
+                                    <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M10 1l2.5 6.5H19l-5.3 4 2 6.5L10 14l-5.7 4 2-6.5L1 7.5h6.5z"/></svg>
+                                    <span>4.8</span>
+                                </div>
+                                <p class="master-option__spec" data-en="Hair art, creative patterns, modern styling" data-lv="Matu māksla, radoši raksti, moderna stilizēšana">Hair art, creative patterns, modern styling</p>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="master-option">
+                        <input type="radio" name="master" value="any">
+                        <div class="master-option__card master-option__card--any">
+                            <div class="master-option__any-icon">
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
+                            </div>
+                            <div class="master-option__info">
+                                <h3 data-en="Any Available" data-lv="Jebkurš brīvais">Any Available</h3>
+                                <p class="master-option__spec" data-en="We'll match you with the first available master" data-lv="Mēs piemeklēsim pirmo brīvo meistaru">We'll match you with the first available master</p>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+            </section>
+
+            <!-- ═══ STEP 3: DATE & TIME ═══ -->
+            <section class="booking__step" data-step="3">
+                <div class="booking__step-header">
+                    <h2 data-en="Pick Date & Time" data-lv="Izvēlies datumu un laiku">Pick Date & Time</h2>
+                    <p data-en="Select your preferred appointment slot" data-lv="Izvēlies vēlamo vizītes laiku">Select your preferred appointment slot</p>
+                </div>
+                <div class="datetime-select">
+                    <div class="date-picker">
+                        <div class="date-picker__header">
+                            <button class="date-picker__nav" id="prevWeek" aria-label="Previous week">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+                            </button>
+                            <span class="date-picker__month" id="dateMonth"></span>
+                            <button class="date-picker__nav" id="nextWeek" aria-label="Next week">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                            </button>
+                        </div>
+                        <div class="date-picker__days" id="dateDays">
+                            <!-- Generated by JS -->
+                        </div>
+                    </div>
+                    <div class="time-picker">
+                        <h3 data-en="Available Times" data-lv="Pieejamie laiki">Available Times</h3>
+                        <div class="time-picker__slots" id="timeSlots">
+                            <!-- Generated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══ STEP 4: DETAILS + ALLERGENS ═══ -->
+            <section class="booking__step" data-step="4">
+                <div class="booking__step-header">
+                    <h2 data-en="Your Details" data-lv="Jūsu dati">Your Details</h2>
+                    <p data-en="Tell us about yourself so we can prepare" data-lv="Pastāstiet par sevi, lai mēs varam sagatavoties">Tell us about yourself so we can prepare</p>
+                </div>
+                <form class="details-form" id="detailsForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="clientName" data-en="Full Name" data-lv="Vārds, Uzvārds">Full Name</label>
+                            <input type="text" id="clientName" name="name" required placeholder="John Smith" autocomplete="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="clientPhone" data-en="Phone" data-lv="Telefons">Phone</label>
+                            <input type="tel" id="clientPhone" name="phone" required placeholder="+371 20 000 000" autocomplete="tel">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientEmail" data-en="Email (for receipt)" data-lv="E-pasts (čekam)">Email (for receipt)</label>
+                        <input type="email" id="clientEmail" name="email" required placeholder="john@example.com" autocomplete="email">
+                    </div>
+
+                    <!-- ALLERGEN SECTION -->
+                    <div class="allergen-section">
+                        <h3 data-en="Allergens & Sensitivities" data-lv="Alerģēni un jutīgums">Allergens & Sensitivities</h3>
+                        <p class="allergen-desc" data-en="Let us know if you're sensitive to any of these common ingredients in our products:" data-lv="Informējiet mūs, ja esat jutīgs pret kādu no šiem bieži izmantotajiem produktu sastāvdaļām:">Let us know if you're sensitive to any of these common ingredients in our products:</p>
+
+                        <div class="allergen-grid">
+                            <label class="allergen-check">
+                                <input type="checkbox" name="allergens" value="latex">
+                                <span class="allergen-check__box"></span>
+                                <div>
+                                    <strong>Latex</strong>
+                                    <small data-en="Gloves, rubber products" data-lv="Cimdi, gumijas izstrādājumi">Gloves, rubber products</small>
+                                </div>
+                            </label>
+                            <label class="allergen-check">
+                                <input type="checkbox" name="allergens" value="fragrance">
+                                <span class="allergen-check__box"></span>
+                                <div>
+                                    <strong data-en="Fragrances / Parfum" data-lv="Smaržvielas / Parfīms">Fragrances / Parfum</strong>
+                                    <small data-en="Aftershave, styling products" data-lv="Pēcskūšanās, stilizēšanas produkti">Aftershave, styling products</small>
+                                </div>
+                            </label>
+                            <label class="allergen-check">
+                                <input type="checkbox" name="allergens" value="ppd">
+                                <span class="allergen-check__box"></span>
+                                <div>
+                                    <strong>PPD (Paraphenylenediamine)</strong>
+                                    <small data-en="Hair dyes, color treatments" data-lv="Matu krāsas, tonēšana">Hair dyes, color treatments</small>
+                                </div>
+                            </label>
+                            <label class="allergen-check">
+                                <input type="checkbox" name="allergens" value="nut-oils">
+                                <span class="allergen-check__box"></span>
+                                <div>
+                                    <strong data-en="Nut Oils" data-lv="Riekstu eļļas">Nut Oils</strong>
+                                    <small data-en="Argan oil, coconut oil, shea butter" data-lv="Argāna eļļa, kokosriekstu eļļa, šī sviests">Argan oil, coconut oil, shea butter</small>
+                                </div>
+                            </label>
+                            <label class="allergen-check">
+                                <input type="checkbox" name="allergens" value="essential-oils">
+                                <span class="allergen-check__box"></span>
+                                <div>
+                                    <strong data-en="Essential Oils" data-lv="Ēteriskās eļļas">Essential Oils</strong>
+                                    <small data-en="Tea tree, eucalyptus, menthol" data-lv="Tējas koka, eikalipta, mentola">Tea tree, eucalyptus, menthol</small>
+                                </div>
+                            </label>
+                            <label class="allergen-check">
+                                <input type="checkbox" name="allergens" value="sulfates">
+                                <span class="allergen-check__box"></span>
+                                <div>
+                                    <strong data-en="Sulfates / SLS" data-lv="Sulfāti / SLS">Sulfates / SLS</strong>
+                                    <small data-en="Shampoos, cleansing products" data-lv="Šampūni, tīrīšanas produkti">Shampoos, cleansing products</small>
+                                </div>
+                            </label>
+                            <label class="allergen-check">
+                                <input type="checkbox" name="allergens" value="ammonia">
+                                <span class="allergen-check__box"></span>
+                                <div>
+                                    <strong data-en="Ammonia" data-lv="Amonjaks">Ammonia</strong>
+                                    <small data-en="Hair color, bleaching products" data-lv="Matu krāsa, balinātāji">Hair color, bleaching products</small>
+                                </div>
+                            </label>
+                            <label class="allergen-check">
+                                <input type="checkbox" name="allergens" value="propylene-glycol">
+                                <span class="allergen-check__box"></span>
+                                <div>
+                                    <strong>Propylene Glycol</strong>
+                                    <small data-en="Gels, lotions, moisturizers" data-lv="Gēli, losjoni, mitrinātāji">Gels, lotions, moisturizers</small>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 16px;">
+                            <label for="clientNotes" data-en="Additional Notes (optional)" data-lv="Papildu piezīmes (neobligāti)">Additional Notes (optional)</label>
+                            <textarea id="clientNotes" name="notes" rows="3" placeholder="" data-en-placeholder="Any special requests or skin conditions we should know about..." data-lv-placeholder="Jebkādi īpaši vēlējumi vai ādas stāvokļi, par kuriem mums būtu jāzina..."></textarea>
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+            <!-- ═══ STEP 5: CONFIRM ═══ -->
+            <section class="booking__step" data-step="5">
+                <div class="booking__step-header">
+                    <h2 data-en="Confirm Booking" data-lv="Apstiprināt pierakstu">Confirm Booking</h2>
+                    <p data-en="Review your appointment details" data-lv="Pārskatiet vizītes detaļas">Review your appointment details</p>
+                </div>
+                <div class="confirm-card">
+                    <div class="confirm-card__header">
+                        <span class="confirm-card__logo">T</span>
+                        <div>
+                            <strong>THRONE</strong>
+                            <small data-en="Booking Confirmation" data-lv="Pieraksta apstiprinājums">Booking Confirmation</small>
+                        </div>
+                    </div>
+                    <div class="confirm-card__body">
+                        <div class="confirm-row">
+                            <span class="confirm-label" data-en="Service" data-lv="Pakalpojums">Service</span>
+                            <span class="confirm-value" id="confirmService">—</span>
+                        </div>
+                        <div class="confirm-row">
+                            <span class="confirm-label" data-en="Master" data-lv="Meistars">Master</span>
+                            <span class="confirm-value" id="confirmMaster">—</span>
+                        </div>
+                        <div class="confirm-row">
+                            <span class="confirm-label" data-en="Date" data-lv="Datums">Date</span>
+                            <span class="confirm-value" id="confirmDate">—</span>
+                        </div>
+                        <div class="confirm-row">
+                            <span class="confirm-label" data-en="Time" data-lv="Laiks">Time</span>
+                            <span class="confirm-value" id="confirmTime">—</span>
+                        </div>
+                        <div class="confirm-row">
+                            <span class="confirm-label" data-en="Duration" data-lv="Ilgums">Duration</span>
+                            <span class="confirm-value" id="confirmDuration">—</span>
+                        </div>
+                        <div class="confirm-row">
+                            <span class="confirm-label" data-en="Client" data-lv="Klients">Client</span>
+                            <span class="confirm-value" id="confirmClient">—</span>
+                        </div>
+                        <div class="confirm-row" id="confirmAllergenRow" style="display:none;">
+                            <span class="confirm-label" data-en="Allergens" data-lv="Alerģēni">Allergens</span>
+                            <span class="confirm-value" id="confirmAllergens">—</span>
+                        </div>
+                        <div class="confirm-divider"></div>
+                        <div class="confirm-row confirm-row--total">
+                            <span class="confirm-label" data-en="Total" data-lv="Kopā">Total</span>
+                            <span class="confirm-value" id="confirmTotal">—</span>
+                        </div>
+                        <div class="confirm-row">
+                            <span class="confirm-label" data-en="Payment" data-lv="Maksājums">Payment</span>
+                            <span class="confirm-value" style="color:var(--accent);" data-en="Pay at location" data-lv="Maksāt uz vietas">Pay at location</span>
+                        </div>
+                    </div>
+                    <p class="confirm-card__note" data-en="📧 Confirmation email sent instantly. You'll receive email reminders 24h and 1h before your appointment. E-receipt will be emailed after your visit." data-lv="📧 Apstiprinājuma e-pasts tiks nosūtīts uzreiz. Jūs saņemsiet e-pasta atgādinājumus 24h un 1h pirms vizītes. E-čeks tiks nosūtīts uz e-pastu pēc apmeklējuma.">📧 Confirmation email sent instantly. You'll receive email reminders 24h and 1h before your appointment. E-receipt will be emailed after your visit.</p>
+                </div>
+            </section>
+
+            <!-- ═══ SUCCESS STATE ═══ -->
+            <section class="booking__success" id="bookingSuccess">
+                <div class="success__icon">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M8 12l3 3 5-5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h2 data-en="You're Booked!" data-lv="Jūs esat pierakstīts!">You're Booked!</h2>
+                <p data-en="Check your email for the confirmation details. See you at THRONE!" data-lv="Pārbaudiet savu e-pastu, lai apskatītu apstiprinājuma detaļas. Tiksimies THRONE!">Check your email for the confirmation details. See you at THRONE!</p>
+                <div class="success__details" id="successDetails"></div>
+                <a href="index.html" class="btn btn--ghost" data-en="Back to Home" data-lv="Atpakaļ uz sākumu">Back to Home</a>
+            </section>
+
+        </div>
+
+        <!-- Navigation buttons -->
+        <div class="booking__nav" id="bookingNav">
+            <button class="btn btn--ghost" id="prevBtn" disabled data-en="Back" data-lv="Atpakaļ">Back</button>
+            <button class="btn btn--primary" id="nextBtn" data-en="Continue" data-lv="Turpināt">Continue</button>
+        </div>
+    </main>
+
+    <!-- GSAP Animation Library -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
+    <script src="book.js"></script>
+</body>
+</html>

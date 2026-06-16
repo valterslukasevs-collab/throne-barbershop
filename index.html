@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THRONE — Premium Barbershop</title>
+    <meta name="description" content="THRONE — Where Kings Are Made. Premium grooming experience crafted for the modern gentleman.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ═══ PRELOADER ═══ -->
+    <div class="preloader" id="preloader">
+        <div class="preloader__inner">
+            <div class="preloader__logo">THRONE</div>
+            <div class="preloader__bar">
+                <div class="preloader__fill" id="preloaderFill"></div>
+            </div>
+            <div class="preloader__counter" id="preloaderCounter">0</div>
+        </div>
+    </div>
+
+    <!-- ═══ CUSTOM CURSOR ═══ -->
+    <div class="cursor" id="cursor">
+        <div class="cursor__dot"></div>
+        <div class="cursor__circle"></div>
+    </div>
+
+    <!-- ═══ SCROLL PROGRESS ═══ -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- ═══ HEADER ═══ -->
+    <header class="header" id="header">
+        <a href="#" class="header__logo">
+            <span class="header__logo-icon">T</span>
+            <span class="header__logo-text">THRONE</span>
+        </a>
+        <nav class="header__nav">
+            <a href="#about" class="header__link" data-en="About" data-lv="Par mums">About</a>
+            <a href="#team" class="header__link" data-en="Masters" data-lv="Meistari">Masters</a>
+            <a href="#services" class="header__link" data-en="Services" data-lv="Pakalpojumi">Services</a>
+            <a href="#gallery" class="header__link" data-en="Gallery" data-lv="Galerija">Gallery</a>
+            <a href="#reviews" class="header__link" data-en="Reviews" data-lv="Atsauksmes">Reviews</a>
+        </nav>
+        <div class="header__actions">
+            <button class="lang-toggle" id="langToggle" aria-label="Switch language">
+                <span class="lang-toggle__active">EN</span>
+                <span class="lang-toggle__sep">/</span>
+                <span class="lang-toggle__inactive">LV</span>
+            </button>
+            <a href="book.html" class="header__cta magnetic" data-strength="10" data-en="Book Now" data-lv="Pierakstīties">Book Now</a>
+        </div>
+        <button class="burger" id="burger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+
+    <!-- ═══ MOBILE NAV ═══ -->
+    <div class="mobile-nav" id="mobileNav">
+        <nav class="mobile-nav__links">
+            <a href="#about" class="mobile-nav__link" data-index="01" data-en="About" data-lv="Par mums">About</a>
+            <a href="#team" class="mobile-nav__link" data-index="02" data-en="Masters" data-lv="Meistari">Masters</a>
+            <a href="#services" class="mobile-nav__link" data-index="03" data-en="Services" data-lv="Pakalpojumi">Services</a>
+            <a href="#gallery" class="mobile-nav__link" data-index="04" data-en="Gallery" data-lv="Galerija">Gallery</a>
+            <a href="#reviews" class="mobile-nav__link" data-index="05" data-en="Reviews" data-lv="Atsauksmes">Reviews</a>
+        </nav>
+        <div class="mobile-nav__footer">
+            <a href="#">Instagram</a>
+            <a href="#">WhatsApp</a>
+        </div>
+    </div>
+
+    <!-- ═══ HERO ═══ -->
+    <section class="hero" id="hero">
+        <div class="hero__bg">
+            <img src="https://images.unsplash.com/photo-1585747860019-024e2e33d14b?auto=format&fit=crop&w=1920&q=80" alt="" class="hero__bg-img" loading="eager">
+            <div class="hero__bg-overlay"></div>
+        </div>
+        <div class="hero__grain"></div>
+
+        <div class="hero__content">
+            <div class="hero__subtitle reveal-text" data-delay="800">
+                <span class="hero__line"></span>
+                <span data-en="Premium Grooming Studio" data-lv="Premium kopšanas studija">Premium Grooming Studio</span>
+            </div>
+
+            <h1 class="hero__title" id="heroTitle">
+                <span class="hero__char" style="--i:0">T</span><span class="hero__char" style="--i:1">H</span><span class="hero__char" style="--i:2">R</span><span class="hero__char" style="--i:3">O</span><span class="hero__char" style="--i:4">N</span><span class="hero__char" style="--i:5">E</span>
+            </h1>
+
+            <p class="hero__tagline reveal-text" data-delay="1200" data-en="Where Kings Are Made" data-lv="Kur top karaļi">Where Kings Are Made</p>
+
+            <div class="hero__ctas reveal-text" data-delay="1500">
+                <a href="book.html" class="btn btn--primary magnetic" data-strength="15">
+                    <span data-en="Book Your Throne" data-lv="Pierakstīties">Book Your Throne</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                </a>
+                <a href="#services" class="btn btn--ghost magnetic" data-strength="15">
+                    <span data-en="Explore Services" data-lv="Pakalpojumi">Explore Services</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="hero__scroll">
+            <div class="hero__scroll-line"></div>
+            <span>Scroll</span>
+        </div>
+
+        <div class="hero__badge">
+            <span class="hero__badge-year">EST</span>
+            <span class="hero__badge-dot"></span>
+            <span class="hero__badge-year">2024</span>
+        </div>
+    </section>
+
+    <!-- ═══ MARQUEE ═══ -->
+    <div class="marquee">
+        <div class="marquee__track">
+            <span class="marquee__text">Premium Grooming <em>&</em> Styling</span>
+            <span class="marquee__dot"></span>
+            <span class="marquee__text">Crafted For Kings</span>
+            <span class="marquee__dot"></span>
+            <span class="marquee__text">Beard Sculpting</span>
+            <span class="marquee__dot"></span>
+            <span class="marquee__text">Hot Towel Ritual</span>
+            <span class="marquee__dot"></span>
+            <span class="marquee__text">Premium Grooming <em>&</em> Styling</span>
+            <span class="marquee__dot"></span>
+            <span class="marquee__text">Crafted For Kings</span>
+            <span class="marquee__dot"></span>
+            <span class="marquee__text">Beard Sculpting</span>
+            <span class="marquee__dot"></span>
+            <span class="marquee__text">Hot Towel Ritual</span>
+            <span class="marquee__dot"></span>
+        </div>
+    </div>
+
+    <!-- ═══ ABOUT ═══ -->
+    <section class="about" id="about">
+        <div class="about__container">
+            <div class="about__left">
+                <div class="about__image-wrap reveal-clip">
+                    <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=800&q=80" alt="Barber at work" class="about__image" loading="lazy">
+                    <div class="about__image-overlay">
+                        <span>10+</span>
+                        <small data-en="Years of Craft" data-lv="Gadi pieredzē">Years of Craft</small>
+                    </div>
+                </div>
+            </div>
+            <div class="about__right">
+                <span class="section-tag reveal-up">01 / <span data-en="About" data-lv="Par mums">About</span></span>
+                <h2 class="about__title reveal-up" data-delay="100">
+                    <span data-en="Not Just a Haircut." data-lv="Ne tikai frizūra.">Not Just a Haircut.</span><br>
+                    <em data-en="An Experience." data-lv="Pieredze.">An Experience.</em>
+                </h2>
+                <p class="about__text reveal-up" data-delay="200" data-en="At Throne, we believe every man deserves a moment of precision, care, and transformation. Our master barbers combine timeless techniques with modern artistry to craft looks that command respect." data-lv="Throne mēs ticam, ka katrs vīrietis ir pelnījis precizitātes, rūpju un pārvērtību brīdi. Mūsu meistari apvieno laika pārbaudītas tehnikas ar modernu mākslu.">
+                    At Throne, we believe every man deserves a moment of precision, care, and transformation. Our master barbers combine timeless techniques with modern artistry to craft looks that command respect.
+                </p>
+                <p class="about__text reveal-up" data-delay="300" data-en="From the moment you sit in our chair, you're not just a client — you're royalty. Premium products, skilled hands, and an atmosphere built for those who appreciate the finer things." data-lv="No brīža, kad apsēžaties mūsu krēslā, jūs neesat tikai klients — jūs esat karalis. Premium produkti, prasīgas rokas un atmosfēra tiem, kas novērtē labāko.">
+                    From the moment you sit in our chair, you're not just a client — you're royalty. Premium products, skilled hands, and an atmosphere built for those who appreciate the finer things.
+                </p>
+                <div class="about__stats reveal-up" data-delay="400">
+                    <div class="stat">
+                        <span class="stat__number" data-count="2847">0</span>
+                        <span class="stat__label" data-en="Happy Clients" data-lv="Apmierināti klienti">Happy Clients</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat__number" data-count="10">0</span>
+                        <span class="stat__label" data-en="Years Experience" data-lv="Gadi pieredze">Years Experience</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat__number">5.0</span>
+                        <span class="stat__label" data-en="Google Rating" data-lv="Google vērtējums">Google Rating</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ TEAM ═══ -->
+    <section class="team" id="team">
+        <div class="team__header">
+            <span class="section-tag reveal-up">02 / <span data-en="Team" data-lv="Komanda">Team</span></span>
+            <h2 class="team__title reveal-up" data-delay="100">
+                <span data-en="Our" data-lv="Mūsu">Our</span> <em data-en="Masters" data-lv="Meistari">Masters</em>
+            </h2>
+        </div>
+        <div class="team__grid">
+            <article class="master-card reveal-up" data-delay="0">
+                <div class="master-card__photo">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80" alt="Marcus Reid" loading="lazy">
+                    <div class="master-card__overlay">
+                        <a href="book.html?master=marcus" class="btn btn--primary btn--sm" data-en="Book with Marcus" data-lv="Pierakstīties pie Marcus">Book with Marcus</a>
+                    </div>
+                </div>
+                <div class="master-card__info">
+                    <h3 class="master-card__name">Marcus Reid</h3>
+                    <span class="master-card__role" data-en="Senior Barber • 8 years" data-lv="Vecākais bārberis • 8 gadi">Senior Barber • 8 years</span>
+                    <p class="master-card__bio" data-en="Specializes in classic cuts and hot towel shaves. Known for his precision fades and attention to detail." data-lv="Specializējas klasiskos griezumos un karsto dvieļu skūšanā. Pazīstams ar precīzām pārejām un uzmanību detaļām.">Specializes in classic cuts and hot towel shaves. Known for his precision fades and attention to detail.</p>
+                </div>
+            </article>
+
+            <article class="master-card reveal-up" data-delay="150">
+                <div class="master-card__photo">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=500&q=80" alt="Alex Stone" loading="lazy">
+                    <div class="master-card__overlay">
+                        <a href="book.html?master=alex" class="btn btn--primary btn--sm" data-en="Book with Alex" data-lv="Pierakstīties pie Alex">Book with Alex</a>
+                    </div>
+                </div>
+                <div class="master-card__info">
+                    <h3 class="master-card__name">Alex Stone</h3>
+                    <span class="master-card__role" data-en="Master Barber • 5 years" data-lv="Meistars bārberis • 5 gadi">Master Barber • 5 years</span>
+                    <p class="master-card__bio" data-en="Creative stylist who brings modern trends to life. Expert in textured crops and beard sculpting." data-lv="Radošs stilists, kas iedzīvina modernas tendences. Eksperts teksturētos griezumos un bārdas veidošanā.">Creative stylist who brings modern trends to life. Expert in textured crops and beard sculpting.</p>
+                </div>
+            </article>
+
+            <article class="master-card reveal-up" data-delay="300">
+                <div class="master-card__photo">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=500&q=80" alt="Daniel Cruz" loading="lazy">
+                    <div class="master-card__overlay">
+                        <a href="book.html?master=daniel" class="btn btn--primary btn--sm" data-en="Book with Daniel" data-lv="Pierakstīties pie Daniel">Book with Daniel</a>
+                    </div>
+                </div>
+                <div class="master-card__info">
+                    <h3 class="master-card__name">Daniel Cruz</h3>
+                    <span class="master-card__role" data-en="Style Expert • 3 years" data-lv="Stila eksperts • 3 gadi">Style Expert • 3 years</span>
+                    <p class="master-card__bio" data-en="Young talent with a sharp eye for design. Specializes in hair art, creative patterns and modern styling." data-lv="Jauns talants ar asu dizaina izjūtu. Specializējas matu mākslā, radošos rakstos un modernā stilizēšanā.">Young talent with a sharp eye for design. Specializes in hair art, creative patterns and modern styling.</p>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- ═══ SERVICES ═══ -->
+    <section class="services" id="services">
+        <div class="services__header">
+            <span class="section-tag reveal-up">03 / <span data-en="Services" data-lv="Pakalpojumi">Services</span></span>
+            <h2 class="services__title reveal-up" data-delay="100">
+                <span data-en="Crafted" data-lv="Izstrādāti">Crafted</span> <em data-en="Services" data-lv="Pakalpojumi">Services</em>
+            </h2>
+        </div>
+
+        <div class="services__grid">
+            <article class="service-card reveal-up" data-delay="0">
+                <span class="service-card__number">01</span>
+                <div class="service-card__icon">
+                    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M24 4v40M14 12c0-4.4 4.5-8 10-8s10 3.6 10 8-4.5 8-10 8-10-3.6-10-8z"/></svg>
+                </div>
+                <h3 class="service-card__title" data-en="Royal Haircut" data-lv="Karaliskais griezums">Royal Haircut</h3>
+                <p class="service-card__desc" data-en="Precision cut tailored to your face shape, lifestyle, and personal style. Includes consultation & styling." data-lv="Precīzs griezums, pielāgots jūsu sejas formai, dzīvesveidam un stilam. Ietver konsultāciju un stilizēšanu.">Precision cut tailored to your face shape, lifestyle, and personal style. Includes consultation & styling.</p>
+                <div class="service-card__footer">
+                    <span class="service-card__price">&euro;25</span>
+                    <span class="service-card__time">45 min</span>
+                </div>
+            </article>
+
+            <article class="service-card service-card--featured reveal-up" data-delay="100">
+                <span class="service-card__badge" data-en="Most Popular" data-lv="Populārākais">Most Popular</span>
+                <span class="service-card__number">02</span>
+                <div class="service-card__icon">
+                    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 40l4-20h24l4 20M16 20V8h16v12M24 8V4"/></svg>
+                </div>
+                <h3 class="service-card__title" data-en="The Full Throne" data-lv="Pilnais Throne">The Full Throne</h3>
+                <p class="service-card__desc" data-en="Our signature experience: haircut, beard sculpt, hot towel ritual, and premium face treatment." data-lv="Mūsu ekskluzīvā pieredze: griezums, bārdas veidošana, karsto dvieļu rituāls un sejas kopšana.">Our signature experience: haircut, beard sculpt, hot towel ritual, and premium face treatment.</p>
+                <div class="service-card__footer">
+                    <span class="service-card__price">&euro;45</span>
+                    <span class="service-card__time">90 min</span>
+                </div>
+            </article>
+
+            <article class="service-card reveal-up" data-delay="200">
+                <span class="service-card__number">03</span>
+                <div class="service-card__icon">
+                    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 24c0-8 5.4-14 12-14s12 6 12 14v2c0 8-5.4 14-12 14s-12-6-12-14v-2z"/><path d="M18 24h12M18 30h12"/></svg>
+                </div>
+                <h3 class="service-card__title" data-en="Beard Sculpting" data-lv="Bārdas veidošana">Beard Sculpting</h3>
+                <p class="service-card__desc" data-en="Expert shaping and trimming for a perfectly defined beard. Hot towel & beard oil finish." data-lv="Profesionāla bārdas formēšana un apgriešana. Karstais dvielis un bārdas eļļa nobeigumā.">Expert shaping and trimming for a perfectly defined beard. Hot towel & beard oil finish.</p>
+                <div class="service-card__footer">
+                    <span class="service-card__price">&euro;20</span>
+                    <span class="service-card__time">30 min</span>
+                </div>
+            </article>
+
+            <article class="service-card reveal-up" data-delay="300">
+                <span class="service-card__number">04</span>
+                <div class="service-card__icon">
+                    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="24" cy="24" r="16"/><path d="M24 14v10l7 7"/></svg>
+                </div>
+                <h3 class="service-card__title" data-en="Hot Towel Shave" data-lv="Karstā dvieļa skūšana">Hot Towel Shave</h3>
+                <p class="service-card__desc" data-en="Classic straight-razor shave with steamed towels, pre-shave oil, and soothing balm." data-lv="Klasisks bīstamā skuveņa skūšanās ar tvaicētiem dvieļiem, pirms-skūšanās eļļu un nomierinošu balzamu.">Classic straight-razor shave with steamed towels, pre-shave oil, and soothing balm.</p>
+                <div class="service-card__footer">
+                    <span class="service-card__price">&euro;30</span>
+                    <span class="service-card__time">40 min</span>
+                </div>
+            </article>
+
+            <article class="service-card reveal-up" data-delay="400">
+                <span class="service-card__number">05</span>
+                <div class="service-card__icon">
+                    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 8l24 32M36 8L12 40"/><circle cx="24" cy="24" r="4"/></svg>
+                </div>
+                <h3 class="service-card__title" data-en="Hair Design" data-lv="Matu dizains">Hair Design</h3>
+                <p class="service-card__desc" data-en="Creative hair patterns, lines, and artistic designs. Express your style with precision detailing." data-lv="Radoši matu raksti, līnijas un māksliniecisks dizains. Izpaudiet savu stilu ar precīzām detaļām.">Creative hair patterns, lines, and artistic designs. Express your style with precision detailing.</p>
+                <div class="service-card__footer">
+                    <span class="service-card__price">&euro;15</span>
+                    <span class="service-card__time">20 min</span>
+                </div>
+            </article>
+
+            <article class="service-card reveal-up" data-delay="500">
+                <span class="service-card__number">06</span>
+                <div class="service-card__icon">
+                    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 36c0-10 6-18 14-18s14 8 14 18"/><circle cx="24" cy="12" r="6"/></svg>
+                </div>
+                <h3 class="service-card__title" data-en="Junior King" data-lv="Jaunais karalis">Junior King</h3>
+                <p class="service-card__desc" data-en="Kids' haircut in a fun, relaxed environment. Every young king leaves looking sharp." data-lv="Bērnu frizūra jautrā, mierīgā vidē. Katrs mazais karalis aiziet izskatoties lieliski.">Kids' haircut in a fun, relaxed environment. Every young king leaves looking sharp.</p>
+                <div class="service-card__footer">
+                    <span class="service-card__price">&euro;15</span>
+                    <span class="service-card__time">30 min</span>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- ═══ GALLERY ═══ -->
+    <section class="gallery" id="gallery">
+        <div class="gallery__header">
+            <span class="section-tag reveal-up">04 / <span data-en="Gallery" data-lv="Galerija">Gallery</span></span>
+            <h2 class="gallery__title reveal-up" data-delay="100"><span data-en="Our" data-lv="Mūsu">Our</span> <em data-en="Craft" data-lv="Prasme">Craft</em></h2>
+        </div>
+        <div class="gallery__grid">
+            <div class="gallery__item gallery__item--tall reveal-clip" data-delay="0">
+                <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=600&q=80" alt="Precision Fade" class="gallery__img" loading="lazy">
+                <span class="gallery__label">Precision Fade</span>
+            </div>
+            <div class="gallery__item reveal-clip" data-delay="100">
+                <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=600&q=80" alt="Beard Work" class="gallery__img" loading="lazy">
+                <span class="gallery__label">Beard Work</span>
+            </div>
+            <div class="gallery__item reveal-clip" data-delay="200">
+                <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?auto=format&fit=crop&w=600&q=80" alt="Classic Cut" class="gallery__img" loading="lazy">
+                <span class="gallery__label">Classic Cut</span>
+            </div>
+            <div class="gallery__item gallery__item--tall reveal-clip" data-delay="150">
+                <img src="https://images.unsplash.com/photo-1493256338651-d82f7acb2b38?auto=format&fit=crop&w=600&q=80" alt="The Studio" class="gallery__img" loading="lazy">
+                <span class="gallery__label">The Studio</span>
+            </div>
+            <div class="gallery__item reveal-clip" data-delay="250">
+                <img src="https://images.unsplash.com/photo-1521490683712-35a1cb235d1c?auto=format&fit=crop&w=600&q=80" alt="Hair Design" class="gallery__img" loading="lazy">
+                <span class="gallery__label">Hair Design</span>
+            </div>
+            <div class="gallery__item reveal-clip" data-delay="300">
+                <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=600&q=80" alt="Hot Towel Ritual" class="gallery__img" loading="lazy">
+                <span class="gallery__label">Hot Towel Ritual</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ BIG TEXT DIVIDER ═══ -->
+    <div class="big-text">
+        <div class="big-text__wrap">
+            <span class="big-text__word reveal-up" data-delay="0">PRECISION</span>
+            <span class="big-text__ampersand reveal-up" data-delay="200">&</span>
+            <span class="big-text__word reveal-up" data-delay="400">CRAFT</span>
+        </div>
+    </div>
+
+    <!-- ═══ REVIEWS ═══ -->
+    <section class="reviews" id="reviews">
+        <div class="reviews__header">
+            <span class="section-tag reveal-up">05 / <span data-en="Reviews" data-lv="Atsauksmes">Reviews</span></span>
+            <h2 class="reviews__title reveal-up" data-delay="100"><span data-en="What Our" data-lv="Ko saka mūsu">What Our</span> <em data-en="Kings" data-lv="Karaļi">Kings</em> <span data-en="Say" data-lv="">Say</span></h2>
+        </div>
+        <div class="reviews__grid">
+            <article class="review reveal-up" data-delay="0">
+                <div class="review__stars">
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.5 6.5H19l-5.3 4 2 6.5L10 14l-5.7 4 2-6.5L1 7.5h6.5z"/></svg>
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.5 6.5H19l-5.3 4 2 6.5L10 14l-5.7 4 2-6.5L1 7.5h6.5z"/></svg>
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.5 6.5H19l-5.3 4 2 6.5L10 14l-5.7 4 2-6.5L1 7.5h6.5z"/></svg>
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.5 6.5H19l-5.3 4 2 6.5L10 14l-5.7 4 2-6.5L1 7.5h6.5z"/></svg>
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.5 6.5H19l-5.3 4 2 6.5L10 14l-5.7 4 2-6.5L1 7.5h6.5z"/></svg>
+                </div>
+                <p class="review__text" data-en="&quot;Absolutely the best barbershop experience I've ever had. The attention to detail is unmatched. Marcus took his time and made sure every line was perfect.&quot;" data-lv="&quot;Absolūti labākā barbershop pieredze manā dzīvē. Uzmanība detaļām ir nepārspējama. Marcus veltīja laiku un pārliecinājās, ka katra līnija ir perfekta.&quot;">"Absolutely the best barbershop experience I've ever had. The attention to detail is unmatched. Marcus took his time and made sure every line was perfect."</p>
+                <div class="review__author">
+                    <div class="review__avatar">J</div>
+                    <div>
+                        <span class="review__name">James K.</span>
+                        <span class="review__meta" data-en="Regular client · 2 years" data-lv="Pastāvīgs klients · 2 gadi">Regular client · 2 years</span>
+                    </div>
+                </div>
+            </article>
+            <article class="review reveal-up" data-delay="150">
+                <div class="review__stars">
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.5 6.5H19l-5.3 4 2 6.5L10 14l-5.7 4 2-6.5L1 7.5h6.5z"/></svg>
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.5 6.5H19l-5.3 4 2 6.5L10 14l-5.7 4 2-6.5L1 7.5h6.5z"/></svg>
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.5 6.5H19l-5.3 4 2 6.5L10 14l-5.7 4 2-6.5L1 7.5h6.5z"/></svg>
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.5 6.5H19l-5.3 4 2 6.5L10 14l-5.7 4 2-6.5L1 7.5h6.5z"/></svg>
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.5 6.5H19l-5.3 4 2 6.5L10 14l-5.7 4 2-6.5L1 7.5h6.5z"/></svg>
+                </div>
+                <p class="review__text" data-en="&quot;The Full Throne package is worth every cent. Hot towel shave, the beard work, everything was premium. This isn't a barbershop — it's an experience.&quot;" data-lv="&quot;Pilnais Throne pakete ir katra centa vērts. Karstā dvieļa skūšanās, bārdas darbs, viss bija premium. Šis nav barbershop — tā ir pieredze.&quot;">"The Full Throne package is worth every cent. Hot towel shave, the beard work, everything was premium. This isn't a barbershop — it's an experience."</p>
+                <div class="review__author">
+                    <div class="review__avatar">D</div>
+                    <div>
+                        <span class="review__name">David R.</span>
+                        <span class="review__meta" data-en="Regular client · 1 year" data-lv="Pastāvīgs klients · 1 gads">Regular client · 1 year</span>
+                    </div>
+                </div>
+            </article>
+            <article class="review reveal-up" data-delay="300">
+                <div class="review__stars">
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.5 6.5H19l-5.3 4 2 6.5L10 14l-5.7 4 2-6.5L1 7.5h6.5z"/></svg>
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.5 6.5H19l-5.3 4 2 6.5L10 14l-5.7 4 2-6.5L1 7.5h6.5z"/></svg>
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.5 6.5H19l-5.3 4 2 6.5L10 14l-5.7 4 2-6.5L1 7.5h6.5z"/></svg>
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.5 6.5H19l-5.3 4 2 6.5L10 14l-5.7 4 2-6.5L1 7.5h6.5z"/></svg>
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.5 6.5H19l-5.3 4 2 6.5L10 14l-5.7 4 2-6.5L1 7.5h6.5z"/></svg>
+                </div>
+                <p class="review__text" data-en="&quot;Finally found a place that understands what a proper gentleman's cut should look like. The vibe, the skill, the products — all top tier. Won't go anywhere else.&quot;" data-lv="&quot;Beidzot atradu vietu, kas saprot kā izskatās īstam džentlmeņa griezumam jāizskatās. Atmosfēra, prasmes, produkti — viss augstākajā līmenī.&quot;">"Finally found a place that understands what a proper gentleman's cut should look like. The vibe, the skill, the products — all top tier. Won't go anywhere else."</p>
+                <div class="review__author">
+                    <div class="review__avatar">M</div>
+                    <div>
+                        <span class="review__name">Michael S.</span>
+                        <span class="review__meta" data-en="Regular client · 6 months" data-lv="Pastāvīgs klients · 6 mēneši">Regular client · 6 months</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- ═══ CTA ═══ -->
+    <section class="cta">
+        <div class="cta__container">
+            <span class="cta__eyebrow reveal-up" data-en="Ready for the experience?" data-lv="Gatavs pieredzei?">Ready for the experience?</span>
+            <h2 class="cta__title reveal-up" data-delay="100">
+                <span data-en="Claim Your" data-lv="Ieņem savu">Claim Your</span><br><em>Throne</em>
+            </h2>
+            <a href="book.html" class="btn btn--primary btn--large magnetic reveal-up" data-delay="200" data-strength="20">
+                <span data-en="Book Now" data-lv="Pierakstīties">Book Now</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- ═══ CONTACT ═══ -->
+    <section class="contact" id="contact">
+        <div class="contact__container">
+            <div class="contact__info">
+                <span class="section-tag reveal-up">06 / <span data-en="Contact" data-lv="Kontakti">Contact</span></span>
+                <h2 class="contact__title reveal-up" data-delay="100">
+                    <span data-en="Visit" data-lv="Apmeklē">Visit</span> <em data-en="Us" data-lv="mūs">Us</em>
+                </h2>
+                <div class="contact__details reveal-up" data-delay="200">
+                    <div class="contact__item">
+                        <span class="contact__label" data-en="Address" data-lv="Adrese">Address</span>
+                        <span class="contact__value">123 King Street<br>City Center</span>
+                    </div>
+                    <div class="contact__item">
+                        <span class="contact__label" data-en="Hours" data-lv="Darba laiks">Hours</span>
+                        <span class="contact__value" data-en="Mon — Fri: 9:00 — 20:00\nSat: 10:00 — 18:00\nSun: Closed" data-lv="P — Pk: 9:00 — 20:00\nS: 10:00 — 18:00\nSv: Slēgts">Mon — Fri: 9:00 — 20:00<br>Sat: 10:00 — 18:00<br>Sun: Closed</span>
+                    </div>
+                    <div class="contact__item">
+                        <span class="contact__label" data-en="Phone" data-lv="Telefons">Phone</span>
+                        <span class="contact__value">+371 20 000 000</span>
+                    </div>
+                    <div class="contact__item">
+                        <span class="contact__label">Email</span>
+                        <span class="contact__value">hello@throne.com</span>
+                    </div>
+                </div>
+                <div class="contact__socials reveal-up" data-delay="300">
+                    <a href="#" class="contact__social magnetic" data-strength="8">Instagram</a>
+                    <a href="#" class="contact__social magnetic" data-strength="8">WhatsApp</a>
+                    <a href="#" class="contact__social magnetic" data-strength="8">Facebook</a>
+                </div>
+            </div>
+            <div class="contact__map reveal-clip" data-delay="200">
+                <div class="contact__map-placeholder" style="background: linear-gradient(135deg, #111 0%, #1a1a1a 50%, #0f0f0f 100%);">
+                    <div class="contact__map-pin">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                    </div>
+                    <span class="contact__map-text">Map Location</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="footer">
+        <div class="footer__container">
+            <div class="footer__top">
+                <div class="footer__brand">
+                    <span class="footer__logo">THRONE</span>
+                    <p class="footer__tagline" data-en="Where Kings Are Made" data-lv="Kur top karaļi">Where Kings Are Made</p>
+                </div>
+                <div class="footer__links">
+                    <a href="#about" data-en="About" data-lv="Par mums">About</a>
+                    <a href="#team" data-en="Masters" data-lv="Meistari">Masters</a>
+                    <a href="#services" data-en="Services" data-lv="Pakalpojumi">Services</a>
+                    <a href="#gallery" data-en="Gallery" data-lv="Galerija">Gallery</a>
+                    <a href="book.html" data-en="Book Now" data-lv="Pierakstīties">Book Now</a>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <span>&copy; 2024 Throne. All rights reserved.</span>
+                <span class="footer__credit">Portfolio project</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- GSAP Animation Library -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
