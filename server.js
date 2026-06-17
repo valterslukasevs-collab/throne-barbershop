@@ -138,7 +138,9 @@ function sanitizeBooking(b) {
 
 // ─── EMAIL TRANSPORTER ───
 const mailer = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
     auth: {
         user: GMAIL_USER,
         pass: GMAIL_APP_PASS
@@ -417,7 +419,7 @@ function logBooking(booking) {
 }
 
 // ─── DEMO MODE (set to false for production) ───
-const DEMO_MODE = true; // true = reminders in 1-3 minutes, false = real timing
+const DEMO_MODE = (process.env.DEMO_MODE || 'true') === 'true';
 
 // ─── SCHEDULE REMINDERS ───
 function scheduleReminders(booking) {
