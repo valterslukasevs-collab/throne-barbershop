@@ -6,7 +6,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // ─── CONFIG ───
-    const N8N_WEBHOOK_URL = 'http://localhost:3000/api/book';
+    const N8N_WEBHOOK_URL = '/api/book';
 
     const MASTERS = {
         marcus: 'Marcus Reid',
