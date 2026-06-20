@@ -263,7 +263,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 scale: 0.9,
                 duration: 0.5,
                 stagger: 0.1,
-                ease: 'power2.out'
+                ease: 'power2.out',
+                onComplete: () => {
+                    document.querySelectorAll('.hero__ctas .btn').forEach(btn => {
+                        btn.style.opacity = '1';
+                        btn.style.transform = 'none';
+                    });
+                }
             }, '-=0.3');
 
             // Scroll indicator

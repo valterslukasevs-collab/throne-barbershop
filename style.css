@@ -507,6 +507,14 @@ em { font-style: italic; color: var(--accent); }
     flex-wrap: wrap;
 }
 
+.hero__ctas .btn {
+    animation: forceVisible 0s 2.5s forwards;
+}
+
+@keyframes forceVisible {
+    to { opacity: 1 !important; transform: none !important; }
+}
+
 /* Scroll indicator */
 .hero__scroll {
     position: absolute;
