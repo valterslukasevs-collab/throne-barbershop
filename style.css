@@ -1418,19 +1418,7 @@ em { font-style: italic; color: var(--accent); }
    ═══════════════════════════════════════════════ */
 @media (max-width: 1024px) {
     .header__nav { display: none; }
-    .header__cta {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 999;
-        display: inline-flex;
-        padding: 14px 24px;
-        font-size: 0.75rem;
-        background: var(--accent);
-        color: var(--bg);
-        border-color: var(--accent);
-        box-shadow: 0 4px 20px rgba(200, 169, 110, 0.4);
-    }
+    .header__cta { display: none; }
     .burger { display: flex; }
 
     .services__grid { grid-template-columns: repeat(2, 1fr); }
@@ -1717,6 +1705,45 @@ body { overflow-x: hidden; }
 /* Marquee — premium accent gradient */
 .marquee {
     background: linear-gradient(90deg, var(--bg) 0%, rgba(200, 169, 110, 0.03) 50%, var(--bg) 100%);
+}
+
+/* ═══════════════════════════════════════════════
+   FIXED MOBILE BOOK BUTTON
+   ═══════════════════════════════════════════════ */
+.fixed-book-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
+    display: none;
+    padding: 14px 24px;
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: var(--accent);
+    color: var(--bg);
+    border-radius: 100px;
+    box-shadow: 0 4px 20px rgba(200, 169, 110, 0.4);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s, transform 0.3s, background 0.3s;
+}
+
+.fixed-book-btn.visible {
+    display: inline-flex;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.fixed-book-btn:hover {
+    background: #d4b87a;
+}
+
+@media (min-width: 1025px) {
+    .fixed-book-btn { display: none !important; }
 }
 
 /* ═══════════════════════════════════════════════

@@ -139,6 +139,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const header = document.getElementById('header');
     const scrollProgress = document.getElementById('scrollProgress');
 
+    const fixedBookBtn = document.getElementById('fixedBookBtn');
+    const heroCtas = document.querySelector('.hero__ctas');
+
     if (header) {
         window.addEventListener('scroll', () => {
             header.classList.toggle('scrolled', window.scrollY > 80);
@@ -147,6 +150,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const docH = document.documentElement.scrollHeight - window.innerHeight;
                 const pct = docH > 0 ? (window.scrollY / docH) * 100 : 0;
                 scrollProgress.style.width = pct + '%';
+            }
+
+            if (fixedBookBtn && heroCtas) {
+                const heroBottom = heroCtas.getBoundingClientRect().bottom;
+                fixedBookBtn.classList.toggle('visible', heroBottom < 0);
             }
         }, { passive: true });
     }
