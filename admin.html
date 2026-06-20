@@ -18,7 +18,6 @@
         }
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
-        /* Login */
         .login-wrap { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
         .login-box { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 48px 40px; width: 100%; max-width: 380px; text-align: center; }
         .login-box h1 { font-size: 13px; letter-spacing: 5px; margin-bottom: 8px; color: var(--accent); }
@@ -29,50 +28,46 @@
         .login-box button:hover { background: #d4b87a; }
         .login-error { color: var(--danger); font-size: 12px; margin-top: 12px; display: none; }
 
-        /* Dashboard */
         .dashboard { display: none; }
         .topbar { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10; }
         .topbar h1 { font-size: 13px; letter-spacing: 4px; color: var(--accent); }
         .topbar-right { display: flex; gap: 12px; align-items: center; }
+        .lang-btn { padding: 8px 14px; border-radius: 6px; border: 1px solid var(--border); background: transparent; color: var(--sub); font-size: 11px; font-weight: 600; cursor: pointer; letter-spacing: 1px; transition: 0.2s; }
+        .lang-btn.active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
         .btn { padding: 10px 20px; border-radius: 8px; border: none; font-size: 12px; font-weight: 600; cursor: pointer; letter-spacing: 0.5px; text-transform: uppercase; transition: 0.2s; }
         .btn-accent { background: var(--accent); color: var(--bg); }
         .btn-accent:hover { background: #d4b87a; }
         .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
         .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
         .btn-danger { background: var(--danger); color: #fff; }
+        .btn-success { background: var(--success); color: #fff; }
         .btn-sm { padding: 6px 14px; font-size: 11px; }
 
-        /* Tabs */
-        .tabs { display: flex; gap: 0; background: var(--bg2); border-bottom: 1px solid var(--border); padding: 0 32px; }
-        .tab { padding: 14px 24px; font-size: 12px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--sub); cursor: pointer; border-bottom: 2px solid transparent; transition: 0.2s; }
+        .tabs { display: flex; gap: 0; background: var(--bg2); border-bottom: 1px solid var(--border); padding: 0 32px; flex-wrap: wrap; }
+        .tab { padding: 14px 20px; font-size: 11px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--sub); cursor: pointer; border-bottom: 2px solid transparent; transition: 0.2s; white-space: nowrap; }
         .tab:hover { color: var(--text); }
         .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
 
-        /* Content */
         .content { max-width: 1000px; margin: 0 auto; padding: 32px; }
         .panel { display: none; }
         .panel.active { display: block; }
 
-        /* Cards */
         .card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 16px; }
-        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 8px; }
         .card-header h3 { font-size: 14px; font-weight: 600; }
 
-        /* Table */
         .table-wrap { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; }
         th { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--sub); text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--border); }
         td { padding: 14px 16px; border-bottom: 1px solid var(--border); font-size: 13px; }
         tr:hover td { background: rgba(255,255,255,0.02); }
 
-        /* Form rows */
         .form-row { display: grid; grid-template-columns: 1fr 1fr 100px 100px 60px; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); }
         .form-row:last-child { border-bottom: none; }
-        .form-row input { width: 100%; padding: 10px 12px; background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: 13px; outline: none; }
-        .form-row input:focus { border-color: var(--accent); }
+        .input { width: 100%; padding: 10px 12px; background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: 13px; outline: none; }
+        .input:focus { border-color: var(--accent); }
         .form-row .toggle { display: flex; align-items: center; justify-content: center; }
 
-        /* Toggle switch */
         .switch { position: relative; width: 44px; height: 24px; }
         .switch input { opacity: 0; width: 0; height: 0; }
         .switch .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: var(--bg3); border: 1px solid var(--border); border-radius: 24px; transition: 0.3s; }
@@ -80,20 +75,23 @@
         .switch input:checked + .slider { background: var(--accent); border-color: var(--accent); }
         .switch input:checked + .slider::before { transform: translateX(20px); background: var(--bg); }
 
-        /* Schedule */
         .sched-row { display: grid; grid-template-columns: 80px 1fr 1fr 60px; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); }
         .sched-row label { font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
+        .sched-row input[type="time"] { padding: 10px 12px; background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: 13px; outline: none; }
 
-        /* Master row */
         .master-row { display: grid; grid-template-columns: 1fr 60px 60px; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); }
-        .master-row input { width: 100%; padding: 10px 12px; background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: 13px; outline: none; }
 
-        /* Toast */
+        .allergen-row { display: grid; grid-template-columns: 1fr 1fr 60px 60px; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); }
+
+        .field-group { margin-bottom: 20px; }
+        .field-group label { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--sub); margin-bottom: 6px; }
+        .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+        .field-full { margin-bottom: 16px; }
+
         .toast { position: fixed; bottom: 24px; right: 24px; background: var(--success); color: #fff; padding: 14px 24px; border-radius: 8px; font-size: 13px; font-weight: 500; transform: translateY(100px); opacity: 0; transition: 0.3s; z-index: 100; }
         .toast.show { transform: translateY(0); opacity: 1; }
 
-        /* Stats */
-        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
         .stat { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; text-align: center; }
         .stat-value { font-size: 32px; font-weight: 700; color: var(--accent); }
         .stat-label { font-size: 11px; color: var(--sub); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 6px; }
@@ -101,21 +99,26 @@
         .badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
         .badge-future { background: rgba(200,169,110,0.15); color: var(--accent); }
         .badge-past { background: rgba(136,136,136,0.15); color: var(--sub); }
+        .badge-today { background: rgba(39,174,96,0.15); color: var(--success); }
+
+        .site-link { display: inline-block; padding: 8px 16px; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; color: var(--accent); text-decoration: none; font-size: 12px; transition: 0.2s; }
+        .site-link:hover { border-color: var(--accent); }
 
         @media (max-width: 768px) {
             .form-row { grid-template-columns: 1fr 1fr; }
-            .form-row input:nth-child(3), .form-row input:nth-child(4) { grid-column: span 1; }
+            .allergen-row { grid-template-columns: 1fr 1fr; }
+            .field-row { grid-template-columns: 1fr; }
             .sched-row { grid-template-columns: 60px 1fr 1fr 50px; }
-            .tabs { overflow-x: auto; padding: 0 16px; }
+            .tabs { padding: 0 12px; }
+            .tab { padding: 12px 14px; font-size: 10px; }
             .content { padding: 16px; }
-            .topbar { padding: 12px 16px; }
+            .topbar { padding: 12px 16px; flex-wrap: wrap; gap: 8px; }
             .stats { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
 <body>
 
-<!-- LOGIN SCREEN -->
 <div class="login-wrap" id="loginScreen">
     <div class="login-box">
         <h1>THRONE</h1>
@@ -126,12 +129,14 @@
     </div>
 </div>
 
-<!-- DASHBOARD -->
 <div class="dashboard" id="dashboard">
     <div class="topbar">
         <h1>THRONE ADMIN</h1>
         <div class="topbar-right">
-            <button class="btn btn-accent" id="saveBtn">Save Changes</button>
+            <button class="lang-btn active" id="langEn">EN</button>
+            <button class="lang-btn" id="langLv">LV</button>
+            <a href="/" class="site-link" target="_blank">&#8599; View Site</a>
+            <button class="btn btn-accent" id="saveBtn">Save</button>
             <button class="btn btn-outline" id="logoutBtn">Logout</button>
         </div>
     </div>
@@ -141,6 +146,9 @@
         <div class="tab" data-tab="services">Services</div>
         <div class="tab" data-tab="masters">Masters</div>
         <div class="tab" data-tab="schedule">Schedule</div>
+        <div class="tab" data-tab="allergens">Allergens</div>
+        <div class="tab" data-tab="business">Business</div>
+        <div class="tab" data-tab="social">Social</div>
     </div>
 
     <div class="content">
@@ -150,20 +158,21 @@
             <div class="stats" id="bookingStats"></div>
             <div class="card">
                 <div class="card-header">
-                    <h3>Recent Bookings</h3>
+                    <h3 data-i18n="bookings_title">Recent Bookings</h3>
+                    <button class="btn btn-outline btn-sm" id="exportCsvBtn">&#8615; Export CSV</button>
                 </div>
                 <div class="table-wrap">
                     <table>
                         <thead>
                             <tr>
-                                <th>Status</th>
-                                <th>Client</th>
-                                <th>Service</th>
-                                <th>Master</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Price</th>
-                                <th>Phone</th>
+                                <th data-i18n="th_status">Status</th>
+                                <th data-i18n="th_client">Client</th>
+                                <th data-i18n="th_service">Service</th>
+                                <th data-i18n="th_master">Master</th>
+                                <th data-i18n="th_date">Date</th>
+                                <th data-i18n="th_time">Time</th>
+                                <th data-i18n="th_price">Price</th>
+                                <th data-i18n="th_phone">Phone</th>
                             </tr>
                         </thead>
                         <tbody id="bookingsBody"></tbody>
@@ -176,13 +185,13 @@
         <div class="panel" id="panel-services">
             <div class="card">
                 <div class="card-header">
-                    <h3>Services & Prices</h3>
-                    <button class="btn btn-accent btn-sm" id="addServiceBtn">+ Add Service</button>
+                    <h3 data-i18n="services_title">Services & Prices</h3>
+                    <button class="btn btn-accent btn-sm" id="addServiceBtn">+ Add</button>
                 </div>
                 <div class="form-row" style="border-bottom: 2px solid var(--border); padding-bottom: 8px;">
-                    <strong style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--sub)">Name (EN)</strong>
-                    <strong style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--sub)">Name (LV)</strong>
-                    <strong style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--sub)">Price €</strong>
+                    <strong style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--sub)" data-i18n="col_name_en">Name (EN)</strong>
+                    <strong style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--sub)" data-i18n="col_name_lv">Name (LV)</strong>
+                    <strong style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--sub)">€</strong>
                     <strong style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--sub)">Min</strong>
                     <strong style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--sub)">On</strong>
                 </div>
@@ -194,8 +203,8 @@
         <div class="panel" id="panel-masters">
             <div class="card">
                 <div class="card-header">
-                    <h3>Masters</h3>
-                    <button class="btn btn-accent btn-sm" id="addMasterBtn">+ Add Master</button>
+                    <h3 data-i18n="masters_title">Masters</h3>
+                    <button class="btn btn-accent btn-sm" id="addMasterBtn">+ Add</button>
                 </div>
                 <div id="mastersList"></div>
             </div>
@@ -205,11 +214,91 @@
         <div class="panel" id="panel-schedule">
             <div class="card">
                 <div class="card-header">
-                    <h3>Working Hours</h3>
+                    <h3 data-i18n="schedule_title">Working Hours</h3>
                 </div>
                 <div id="scheduleList"></div>
             </div>
         </div>
+
+        <!-- ALLERGENS -->
+        <div class="panel" id="panel-allergens">
+            <div class="card">
+                <div class="card-header">
+                    <h3 data-i18n="allergens_title">Allergens</h3>
+                    <button class="btn btn-accent btn-sm" id="addAllergenBtn">+ Add</button>
+                </div>
+                <div class="allergen-row" style="border-bottom: 2px solid var(--border); padding-bottom: 8px;">
+                    <strong style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--sub)" data-i18n="col_name_en">Name (EN)</strong>
+                    <strong style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--sub)" data-i18n="col_name_lv">Name (LV)</strong>
+                    <strong style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--sub)">On</strong>
+                    <strong style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--sub)"></strong>
+                </div>
+                <div id="allergensList"></div>
+            </div>
+        </div>
+
+        <!-- BUSINESS INFO -->
+        <div class="panel" id="panel-business">
+            <div class="card">
+                <div class="card-header">
+                    <h3 data-i18n="business_title">Business Info</h3>
+                </div>
+                <div class="field-full">
+                    <label data-i18n="lbl_biz_name">Business Name</label>
+                    <input class="input" type="text" id="bizName" placeholder="THRONE">
+                </div>
+                <div class="field-row">
+                    <div>
+                        <label data-i18n="lbl_tagline_en">Tagline (EN)</label>
+                        <input class="input" type="text" id="bizTaglineEn" placeholder="Where Kings Are Made">
+                    </div>
+                    <div>
+                        <label data-i18n="lbl_tagline_lv">Tagline (LV)</label>
+                        <input class="input" type="text" id="bizTaglineLv" placeholder="Kur top karaļi">
+                    </div>
+                </div>
+                <div class="field-row">
+                    <div>
+                        <label data-i18n="lbl_phone">Phone</label>
+                        <input class="input" type="tel" id="bizPhone" placeholder="+371 20 000 000">
+                    </div>
+                    <div>
+                        <label>Email</label>
+                        <input class="input" type="email" id="bizEmail" placeholder="hello@throne.com">
+                    </div>
+                </div>
+                <div class="field-full">
+                    <label data-i18n="lbl_address">Address</label>
+                    <input class="input" type="text" id="bizAddress" placeholder="123 King Street, City Center">
+                </div>
+                <div class="field-full">
+                    <label>WhatsApp</label>
+                    <input class="input" type="text" id="bizWhatsapp" placeholder="37120000000">
+                </div>
+            </div>
+        </div>
+
+        <!-- SOCIAL LINKS -->
+        <div class="panel" id="panel-social">
+            <div class="card">
+                <div class="card-header">
+                    <h3 data-i18n="social_title">Social Media Links</h3>
+                </div>
+                <div class="field-full">
+                    <label>Instagram URL</label>
+                    <input class="input" type="url" id="socialInstagram" placeholder="https://instagram.com/yourbarbershop">
+                </div>
+                <div class="field-full">
+                    <label>Facebook URL</label>
+                    <input class="input" type="url" id="socialFacebook" placeholder="https://facebook.com/yourbarbershop">
+                </div>
+                <div class="field-full">
+                    <label data-i18n="lbl_wa_num">WhatsApp Number</label>
+                    <input class="input" type="text" id="socialWhatsapp" placeholder="37120000000">
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 

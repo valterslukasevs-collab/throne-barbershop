@@ -20,5 +20,29 @@
     "fri": { "open": "09:00", "close": "20:00", "active": true },
     "sat": { "open": "10:00", "close": "18:00", "active": true },
     "sun": { "open": "",      "close": "",      "active": false }
+  },
+  "allergens": {
+    "latex":            { "name": "Latex",            "nameLv": "Latekss",             "active": true },
+    "fragrance":        { "name": "Fragrances",       "nameLv": "Smaržvielas",         "active": true },
+    "ppd":              { "name": "PPD (Hair Dye)",   "nameLv": "PPD (matu krāsa)",    "active": true },
+    "nut-oils":         { "name": "Nut Oils",         "nameLv": "Riekstu eļļas",       "active": true },
+    "essential-oils":   { "name": "Essential Oils",   "nameLv": "Ēteriskās eļļas",     "active": true },
+    "sulfates":         { "name": "Sulfates/SLS",     "nameLv": "Sulfāti/SLS",         "active": true },
+    "ammonia":          { "name": "Ammonia",          "nameLv": "Amonjaks",            "active": true },
+    "propylene-glycol": { "name": "Propylene Glycol", "nameLv": "Propilēnglikols",     "active": true }
+  },
+  "business": {
+    "name": "THRONE",
+    "taglineEn": "Where Kings Are Made",
+    "taglineLv": "Kur top karaļi",
+    "phone": "+371 20 000 000",
+    "email": "hello@throne.com",
+    "address": "123 King Street, City Center",
+    "whatsapp": "37120000000"
+  },
+  "social": {
+    "instagram": "",
+    "facebook": "",
+    "whatsapp": "37120000000"
   }
 }
