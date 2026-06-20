@@ -8,7 +8,7 @@ const https = require('https');
 const fs = require('fs');
 const path = require('path');
 const url = require('url');
-const nodemailer = require('nodemailer');
+// Email via Resend HTTP API (no SMTP — works on Render free tier)
 
 // ─── LOAD .env (manual parser, no dotenv dependency) ───
 (function loadEnv() {
@@ -33,8 +33,8 @@ const nodemailer = require('nodemailer');
 const PORT = 3000;
 const TG_TOKEN = process.env.TG_TOKEN || '';
 const MASTER_CHAT_ID = process.env.MASTER_CHAT_ID || '';
-const GMAIL_USER = process.env.GMAIL_USER || '';
-const GMAIL_APP_PASS = process.env.GMAIL_APP_PASS || '';
+const RESEND_API_KEY = process.env.RESEND_API_KEY || '';
+const EMAIL_FROM = process.env.EMAIL_FROM || 'THRONE Barbershop <onboarding@resend.dev>';
 const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || 'http://localhost:3000';
 
 // ─── SMS CONFIG ───
@@ -136,22 +136,12 @@ function sanitizeBooking(b) {
     };
 }
 
-// ─── EMAIL TRANSPORTER ───
-const mailer = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false,
-    auth: {
-        user: GMAIL_USER,
-        pass: GMAIL_APP_PASS
-    }
-});
-
-// Verify on startup
-mailer.verify((err) => {
-    if (err) console.log('  ❌ Gmail error:', err.message);
-    else console.log('  ✅ Gmail connected!');
-});
+// ─── RESEND EMAIL (HTTP API) ───
+if (RESEND_API_KEY) {
+    console.log('  ✅ Resend API key configured');
+} else {
+    console.log('  ⚠️  No RESEND_API_KEY — emails disabled');
+}
 
 // ─── MIME TYPES ───
 const MIME = {
@@ -298,18 +288,44 @@ async function sendSMS(phone, message) {
     }
 }
 
-// ─── EMAIL HELPER ───
+// ─── EMAIL HELPER (Resend HTTP API) ───
 async function sendEmail(to, subject, html) {
+    if (!RESEND_API_KEY) {
+        console.log(`  ⚠️  Email skipped (no API key): ${to}`);
+        return;
+    }
     try {
-        await mailer.sendMail({
-            from: `"THRONE Barbershop" <${GMAIL_USER}>`,
-            to,
-            subject,
-            html
+        const data = JSON.stringify({ from: EMAIL_FROM, to: [to], subject, html });
+        await new Promise((resolve, reject) => {
+            const req = https.request({
+                hostname: 'api.resend.com',
+                path: '/emails',
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${RESEND_API_KEY}`,
+                    'Content-Length': Buffer.byteLength(data)
+                }
+            }, (res) => {
+                let body = '';
+                res.on('data', c => body += c);
+                res.on('end', () => {
+                    const r = JSON.parse(body);
+                    if (r.id) {
+                        console.log(`  ✅ Email sent to ${to} (Resend)`);
+                        resolve(r);
+                    } else {
+                        console.log(`  ❌ Email error: ${JSON.stringify(r)}`);
+                        reject(r);
+                    }
+                });
+            });
+            req.on('error', (e) => { console.log(`  ❌ Email error: ${e.message}`); reject(e); });
+            req.write(data);
+            req.end();
         });
-        console.log(`  ✅ Email sent to ${to}`);
     } catch (err) {
-        console.log(`  ❌ Email error: ${err.message}`);
+        console.log(`  ❌ Email failed: ${err.message}`);
     }
 }
 
@@ -580,5 +596,5 @@ server.listen(PORT, () => {
     console.log(`   http://localhost:${PORT}`);
     console.log(`   API: http://localhost:${PORT}/api/book`);
     console.log(`   TG: @Throne_barber_bot`);
-    console.log(`   Email: ${GMAIL_USER}\n`);
+    console.log(`   Email: Resend API${RESEND_API_KEY ? ' ✓' : ' (not configured)'}\n`);
 });
