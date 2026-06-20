@@ -467,7 +467,7 @@ em { font-style: italic; color: var(--accent); }
 
 .hero__title {
     font-family: var(--font-ui);
-    font-size: clamp(4rem, 15vw, 13rem);
+    font-size: clamp(3rem, 12vw, 13rem);
     font-weight: 700;
     line-height: 0.85;
     letter-spacing: 0.06em;
@@ -1649,8 +1649,6 @@ em { font-style: italic; color: var(--accent); }
 
 @media (max-width: 580px) {
     .team__grid { grid-template-columns: 1fr; }
-    .header__actions .header__cta { display: none; }
-
     /* Fix overflow on mobile */
     .hero__content { padding: 0 var(--space-md); }
     .hero__ctas { flex-direction: column; align-items: center; }
@@ -1669,8 +1667,6 @@ em { font-style: italic; color: var(--accent); }
 }
 
 @media (max-width: 1024px) {
-    .header__actions .header__cta { display: none; }
-
     /* Prevent horizontal overflow from cursor div */
     .cursor { display: none !important; }
     html { cursor: auto !important; }
