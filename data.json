@@ -1,0 +1,24 @@
+{
+  "services": {
+    "royal-haircut":   { "name": "Royal Haircut",   "nameLv": "Karaliskais griezums",  "price": 25, "duration": 45, "active": true },
+    "full-throne":     { "name": "The Full Throne", "nameLv": "Pilnais Throne",        "price": 45, "duration": 90, "active": true },
+    "beard-sculpting": { "name": "Beard Sculpting", "nameLv": "Bārdas veidošana",      "price": 20, "duration": 30, "active": true },
+    "hot-towel-shave": { "name": "Hot Towel Shave", "nameLv": "Karstā dvieļa skūšana","price": 30, "duration": 40, "active": true },
+    "hair-design":     { "name": "Hair Design",     "nameLv": "Matu dizains",          "price": 15, "duration": 20, "active": true },
+    "junior-king":     { "name": "Junior King",     "nameLv": "Jaunais karalis",       "price": 15, "duration": 30, "active": true }
+  },
+  "masters": {
+    "marcus": { "name": "Marcus Reid", "active": true },
+    "alex":   { "name": "Alex Stone",  "active": true },
+    "daniel": { "name": "Daniel Cruz", "active": true }
+  },
+  "schedule": {
+    "mon": { "open": "09:00", "close": "20:00", "active": true },
+    "tue": { "open": "09:00", "close": "20:00", "active": true },
+    "wed": { "open": "09:00", "close": "20:00", "active": true },
+    "thu": { "open": "09:00", "close": "20:00", "active": true },
+    "fri": { "open": "09:00", "close": "20:00", "active": true },
+    "sat": { "open": "10:00", "close": "18:00", "active": true },
+    "sun": { "open": "",      "close": "",      "active": false }
+  }
+}

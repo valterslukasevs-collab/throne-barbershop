@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin — THRONE</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #0a0a0a; --bg2: #141414; --bg3: #1a1a1a;
+            --border: rgba(255,255,255,0.08); --text: #f5f0eb;
+            --sub: #888; --accent: #C8A96E; --danger: #e74c3c;
+            --success: #27ae60; --radius: 12px;
+        }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+        /* Login */
+        .login-wrap { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+        .login-box { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 48px 40px; width: 100%; max-width: 380px; text-align: center; }
+        .login-box h1 { font-size: 13px; letter-spacing: 5px; margin-bottom: 8px; color: var(--accent); }
+        .login-box p { font-size: 13px; color: var(--sub); margin-bottom: 32px; }
+        .login-box input { width: 100%; padding: 14px 16px; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px; outline: none; margin-bottom: 16px; }
+        .login-box input:focus { border-color: var(--accent); }
+        .login-box button { width: 100%; padding: 14px; background: var(--accent); color: var(--bg); border: none; border-radius: 8px; font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; }
+        .login-box button:hover { background: #d4b87a; }
+        .login-error { color: var(--danger); font-size: 12px; margin-top: 12px; display: none; }
+
+        /* Dashboard */
+        .dashboard { display: none; }
+        .topbar { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10; }
+        .topbar h1 { font-size: 13px; letter-spacing: 4px; color: var(--accent); }
+        .topbar-right { display: flex; gap: 12px; align-items: center; }
+        .btn { padding: 10px 20px; border-radius: 8px; border: none; font-size: 12px; font-weight: 600; cursor: pointer; letter-spacing: 0.5px; text-transform: uppercase; transition: 0.2s; }
+        .btn-accent { background: var(--accent); color: var(--bg); }
+        .btn-accent:hover { background: #d4b87a; }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+        .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+        .btn-danger { background: var(--danger); color: #fff; }
+        .btn-sm { padding: 6px 14px; font-size: 11px; }
+
+        /* Tabs */
+        .tabs { display: flex; gap: 0; background: var(--bg2); border-bottom: 1px solid var(--border); padding: 0 32px; }
+        .tab { padding: 14px 24px; font-size: 12px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--sub); cursor: pointer; border-bottom: 2px solid transparent; transition: 0.2s; }
+        .tab:hover { color: var(--text); }
+        .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+        /* Content */
+        .content { max-width: 1000px; margin: 0 auto; padding: 32px; }
+        .panel { display: none; }
+        .panel.active { display: block; }
+
+        /* Cards */
+        .card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 16px; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .card-header h3 { font-size: 14px; font-weight: 600; }
+
+        /* Table */
+        .table-wrap { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; }
+        th { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--sub); text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--border); }
+        td { padding: 14px 16px; border-bottom: 1px solid var(--border); font-size: 13px; }
+        tr:hover td { background: rgba(255,255,255,0.02); }
+
+        /* Form rows */
+        .form-row { display: grid; grid-template-columns: 1fr 1fr 100px 100px 60px; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); }
+        .form-row:last-child { border-bottom: none; }
+        .form-row input { width: 100%; padding: 10px 12px; background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: 13px; outline: none; }
+        .form-row input:focus { border-color: var(--accent); }
+        .form-row .toggle { display: flex; align-items: center; justify-content: center; }
+
+        /* Toggle switch */
+        .switch { position: relative; width: 44px; height: 24px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .switch .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: var(--bg3); border: 1px solid var(--border); border-radius: 24px; transition: 0.3s; }
+        .switch .slider::before { content: ''; position: absolute; height: 18px; width: 18px; left: 2px; bottom: 2px; background: var(--sub); border-radius: 50%; transition: 0.3s; }
+        .switch input:checked + .slider { background: var(--accent); border-color: var(--accent); }
+        .switch input:checked + .slider::before { transform: translateX(20px); background: var(--bg); }
+
+        /* Schedule */
+        .sched-row { display: grid; grid-template-columns: 80px 1fr 1fr 60px; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); }
+        .sched-row label { font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Master row */
+        .master-row { display: grid; grid-template-columns: 1fr 60px 60px; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); }
+        .master-row input { width: 100%; padding: 10px 12px; background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: 13px; outline: none; }
+
+        /* Toast */
+        .toast { position: fixed; bottom: 24px; right: 24px; background: var(--success); color: #fff; padding: 14px 24px; border-radius: 8px; font-size: 13px; font-weight: 500; transform: translateY(100px); opacity: 0; transition: 0.3s; z-index: 100; }
+        .toast.show { transform: translateY(0); opacity: 1; }
+
+        /* Stats */
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+        .stat { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; text-align: center; }
+        .stat-value { font-size: 32px; font-weight: 700; color: var(--accent); }
+        .stat-label { font-size: 11px; color: var(--sub); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 6px; }
+
+        .badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+        .badge-future { background: rgba(200,169,110,0.15); color: var(--accent); }
+        .badge-past { background: rgba(136,136,136,0.15); color: var(--sub); }
+
+        @media (max-width: 768px) {
+            .form-row { grid-template-columns: 1fr 1fr; }
+            .form-row input:nth-child(3), .form-row input:nth-child(4) { grid-column: span 1; }
+            .sched-row { grid-template-columns: 60px 1fr 1fr 50px; }
+            .tabs { overflow-x: auto; padding: 0 16px; }
+            .content { padding: 16px; }
+            .topbar { padding: 12px 16px; }
+            .stats { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div class="login-wrap" id="loginScreen">
+    <div class="login-box">
+        <h1>THRONE</h1>
+        <p>Admin Panel</p>
+        <input type="password" id="loginPass" placeholder="Password" autofocus>
+        <button id="loginBtn">Login</button>
+        <div class="login-error" id="loginError">Wrong password</div>
+    </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard">
+    <div class="topbar">
+        <h1>THRONE ADMIN</h1>
+        <div class="topbar-right">
+            <button class="btn btn-accent" id="saveBtn">Save Changes</button>
+            <button class="btn btn-outline" id="logoutBtn">Logout</button>
+        </div>
+    </div>
+
+    <div class="tabs" id="tabs">
+        <div class="tab active" data-tab="bookings">Bookings</div>
+        <div class="tab" data-tab="services">Services</div>
+        <div class="tab" data-tab="masters">Masters</div>
+        <div class="tab" data-tab="schedule">Schedule</div>
+    </div>
+
+    <div class="content">
+
+        <!-- BOOKINGS -->
+        <div class="panel active" id="panel-bookings">
+            <div class="stats" id="bookingStats"></div>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Recent Bookings</h3>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Status</th>
+                                <th>Client</th>
+                                <th>Service</th>
+                                <th>Master</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Price</th>
+                                <th>Phone</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bookingsBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- SERVICES -->
+        <div class="panel" id="panel-services">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Services & Prices</h3>
+                    <button class="btn btn-accent btn-sm" id="addServiceBtn">+ Add Service</button>
+                </div>
+                <div class="form-row" style="border-bottom: 2px solid var(--border); padding-bottom: 8px;">
+                    <strong style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--sub)">Name (EN)</strong>
+                    <strong style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--sub)">Name (LV)</strong>
+                    <strong style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--sub)">Price €</strong>
+                    <strong style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--sub)">Min</strong>
+                    <strong style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--sub)">On</strong>
+                </div>
+                <div id="servicesList"></div>
+            </div>
+        </div>
+
+        <!-- MASTERS -->
+        <div class="panel" id="panel-masters">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Masters</h3>
+                    <button class="btn btn-accent btn-sm" id="addMasterBtn">+ Add Master</button>
+                </div>
+                <div id="mastersList"></div>
+            </div>
+        </div>
+
+        <!-- SCHEDULE -->
+        <div class="panel" id="panel-schedule">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Working Hours</h3>
+                </div>
+                <div id="scheduleList"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="toast" id="toast">Saved!</div>
+
+<script src="admin.js"></script>
+</body>
+</html>

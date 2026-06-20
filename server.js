@@ -437,6 +437,56 @@ function logBooking(booking) {
 // ─── DEMO MODE (set to false for production) ───
 const DEMO_MODE = (process.env.DEMO_MODE || 'true') === 'true';
 
+// ─── ADMIN CONFIG ───
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'throne2026';
+const adminSessions = new Map();
+
+function generateToken() {
+    return require('crypto').randomBytes(32).toString('hex');
+}
+
+function isAdminAuth(req) {
+    const auth = req.headers['authorization'];
+    if (!auth || !auth.startsWith('Bearer ')) return false;
+    return adminSessions.has(auth.slice(7));
+}
+
+// ─── DATA FILE ───
+const DATA_PATH = path.join(__dirname, 'data.json');
+
+function loadData() {
+    try { return JSON.parse(fs.readFileSync(DATA_PATH, 'utf8')); }
+    catch { return { services: {}, masters: {}, schedule: {} }; }
+}
+
+function saveData(data) {
+    fs.writeFileSync(DATA_PATH, JSON.stringify(data, null, 2));
+}
+
+function loadBookings() {
+    const csvPath = path.join(__dirname, 'bookings.csv');
+    if (!fs.existsSync(csvPath)) return [];
+    const lines = fs.readFileSync(csvPath, 'utf8').trim().split('\n');
+    if (lines.length < 2) return [];
+    const headers = lines[0].split(',').map(h => h.replace(/"/g, '').trim());
+    const rows = [];
+    for (let i = lines.length - 1; i >= 1; i--) {
+        const vals = [];
+        let current = '';
+        let inQuotes = false;
+        for (const ch of lines[i]) {
+            if (ch === '"') { inQuotes = !inQuotes; continue; }
+            if (ch === ',' && !inQuotes) { vals.push(current); current = ''; continue; }
+            current += ch;
+        }
+        vals.push(current);
+        const obj = {};
+        headers.forEach((h, idx) => obj[h] = (vals[idx] || '').trim());
+        rows.push(obj);
+    }
+    return rows;
+}
+
 // ─── SCHEDULE REMINDERS ───
 function scheduleReminders(booking) {
     const appointmentTime = new Date(`${booking.date}T${booking.time}:00`);
@@ -498,7 +548,7 @@ const server = http.createServer(async (req, res) => {
     res.setHeader('X-XSS-Protection', '1; mode=block');
     res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
     res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), payment=()');
-    res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data:; connect-src 'self'; frame-ancestors 'none'");
+    res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com https://www.google-analytics.com data:; connect-src 'self' https://www.google-analytics.com; frame-src https://www.google.com; frame-ancestors 'none'");
     res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
     if (req.method === 'OPTIONS') { res.writeHead(204); return res.end(); }
 
@@ -569,6 +619,72 @@ const server = http.createServer(async (req, res) => {
         return;
     }
 
+    // ── API: Admin Login ──
+    if (req.method === 'POST' && parsed.pathname === '/api/admin/login') {
+        let body = '';
+        req.on('data', c => { body += c; if (body.length > 1024) req.destroy(); });
+        req.on('end', () => {
+            try {
+                const { password } = JSON.parse(body);
+                if (password === ADMIN_PASSWORD) {
+                    const token = generateToken();
+                    adminSessions.set(token, { created: Date.now() });
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ status: 'ok', token }));
+                } else {
+                    res.writeHead(401, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ status: 'error', message: 'Wrong password' }));
+                }
+            } catch {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ status: 'error', message: 'Invalid request' }));
+            }
+        });
+        return;
+    }
+
+    // ── API: Admin — Get Data ──
+    if (req.method === 'GET' && parsed.pathname === '/api/admin/data') {
+        if (!isAdminAuth(req)) { res.writeHead(401); return res.end('Unauthorized'); }
+        const data = loadData();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        return res.end(JSON.stringify(data));
+    }
+
+    // ── API: Admin — Save Data ──
+    if (req.method === 'POST' && parsed.pathname === '/api/admin/data') {
+        if (!isAdminAuth(req)) { res.writeHead(401); return res.end('Unauthorized'); }
+        let body = '';
+        req.on('data', c => { body += c; if (body.length > 50000) req.destroy(); });
+        req.on('end', () => {
+            try {
+                const data = JSON.parse(body);
+                saveData(data);
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ status: 'ok' }));
+            } catch {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ status: 'error', message: 'Invalid JSON' }));
+            }
+        });
+        return;
+    }
+
+    // ── API: Admin — Get Bookings ──
+    if (req.method === 'GET' && parsed.pathname === '/api/admin/bookings') {
+        if (!isAdminAuth(req)) { res.writeHead(401); return res.end('Unauthorized'); }
+        const bookings = loadBookings();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        return res.end(JSON.stringify(bookings));
+    }
+
+    // ── API: Public — Get Services/Masters/Schedule for booking page ──
+    if (req.method === 'GET' && parsed.pathname === '/api/data') {
+        const data = loadData();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        return res.end(JSON.stringify(data));
+    }
+
     // ── Static files ──
     let filePath = parsed.pathname === '/' ? '/index.html' : parsed.pathname;
     const resolved = path.resolve(path.join(__dirname, filePath));
@@ -579,7 +695,7 @@ const server = http.createServer(async (req, res) => {
     }
     // Block access to sensitive files
     const basename = path.basename(resolved).toLowerCase();
-    if (basename === '.env' || basename === '.env.example' || basename === '.gitignore' || basename === 'bookings.csv') {
+    if (basename === '.env' || basename === '.env.example' || basename === '.gitignore' || basename === 'bookings.csv' || basename === 'data.json') {
         res.writeHead(403);
         return res.end('403 Forbidden');
     }
