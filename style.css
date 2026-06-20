@@ -1100,9 +1100,7 @@ em { font-style: italic; color: var(--accent); }
 }
 
 .review {
-    background: rgba(18, 18, 16, 0.5);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(18, 18, 16, 0.95);
     border: 1px solid var(--border);
     border-radius: var(--r-lg);
     padding: var(--space-lg);
@@ -1420,7 +1418,11 @@ em { font-style: italic; color: var(--accent); }
    ═══════════════════════════════════════════════ */
 @media (max-width: 1024px) {
     .header__nav { display: none; }
-    .header__cta { display: none; }
+    .header__cta {
+        display: inline-flex;
+        padding: 8px 16px;
+        font-size: 0.65rem;
+    }
     .burger { display: flex; }
 
     .services__grid { grid-template-columns: repeat(2, 1fr); }
@@ -1555,9 +1557,7 @@ em { font-style: italic; color: var(--accent); }
 }
 
 .master-card {
-    background: rgba(18, 18, 16, 0.6);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(18, 18, 16, 0.95);
     border: 1px solid var(--border);
     border-radius: var(--r-lg);
     overflow: hidden;
