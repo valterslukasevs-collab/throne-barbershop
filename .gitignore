@@ -1,3 +1,4 @@
 .env
+.admin_hash
 node_modules/
 bookings.csv

@@ -1,35 +1,140 @@
 {
   "services": {
-    "royal-haircut":   { "name": "Royal Haircut",   "nameLv": "Karaliskais griezums",  "price": 25, "duration": 45, "active": true },
-    "full-throne":     { "name": "The Full Throne", "nameLv": "Pilnais Throne",        "price": 45, "duration": 90, "active": true },
-    "beard-sculpting": { "name": "Beard Sculpting", "nameLv": "Bārdas veidošana",      "price": 20, "duration": 30, "active": true },
-    "hot-towel-shave": { "name": "Hot Towel Shave", "nameLv": "Karstā dvieļa skūšana","price": 30, "duration": 40, "active": true },
-    "hair-design":     { "name": "Hair Design",     "nameLv": "Matu dizains",          "price": 15, "duration": 20, "active": true },
-    "junior-king":     { "name": "Junior King",     "nameLv": "Jaunais karalis",       "price": 15, "duration": 30, "active": true }
+    "royal-haircut": {
+      "name": "Royal Haircut",
+      "nameLv": "Karaliskais griezums",
+      "price": 25,
+      "duration": 45,
+      "active": true
+    },
+    "full-throne": {
+      "name": "The Full Throne",
+      "nameLv": "Pilnais Throne",
+      "price": 45,
+      "duration": 90,
+      "active": true
+    },
+    "beard-sculpting": {
+      "name": "Beard Sculpting",
+      "nameLv": "Bārdas veidošana",
+      "price": 20,
+      "duration": 30,
+      "active": true
+    },
+    "hot-towel-shave": {
+      "name": "Hot Towel Shave",
+      "nameLv": "Karstā dvieļa skūšana",
+      "price": 30,
+      "duration": 40,
+      "active": true
+    },
+    "hair-design": {
+      "name": "Hair Design",
+      "nameLv": "Matu dizains",
+      "price": 15,
+      "duration": 20,
+      "active": true
+    },
+    "junior-king": {
+      "name": "Junior King",
+      "nameLv": "Jaunais karalis",
+      "price": 15,
+      "duration": 30,
+      "active": true
+    }
   },
   "masters": {
-    "marcus": { "name": "Marcus Reid", "active": true },
-    "alex":   { "name": "Alex Stone",  "active": true },
-    "daniel": { "name": "Daniel Cruz", "active": true }
+    "marcus": {
+      "name": "Marcus Reid",
+      "active": true
+    },
+    "alex": {
+      "name": "Alex Stone",
+      "active": true
+    },
+    "daniel": {
+      "name": "Daniel Cruz",
+      "active": true
+    }
   },
   "schedule": {
-    "mon": { "open": "09:00", "close": "20:00", "active": true },
-    "tue": { "open": "09:00", "close": "20:00", "active": true },
-    "wed": { "open": "09:00", "close": "20:00", "active": true },
-    "thu": { "open": "09:00", "close": "20:00", "active": true },
-    "fri": { "open": "09:00", "close": "20:00", "active": true },
-    "sat": { "open": "10:00", "close": "18:00", "active": true },
-    "sun": { "open": "",      "close": "",      "active": false }
+    "mon": {
+      "open": "09:00",
+      "close": "20:00",
+      "active": true
+    },
+    "tue": {
+      "open": "09:00",
+      "close": "20:00",
+      "active": true
+    },
+    "wed": {
+      "open": "09:00",
+      "close": "20:00",
+      "active": true
+    },
+    "thu": {
+      "open": "09:00",
+      "close": "20:00",
+      "active": true
+    },
+    "fri": {
+      "open": "09:00",
+      "close": "20:00",
+      "active": true
+    },
+    "sat": {
+      "open": "10:00",
+      "close": "18:00",
+      "active": true
+    },
+    "sun": {
+      "open": "",
+      "close": "",
+      "active": false
+    }
   },
   "allergens": {
-    "latex":            { "name": "Latex",            "nameLv": "Latekss",             "active": true },
-    "fragrance":        { "name": "Fragrances",       "nameLv": "Smaržvielas",         "active": true },
-    "ppd":              { "name": "PPD (Hair Dye)",   "nameLv": "PPD (matu krāsa)",    "active": true },
-    "nut-oils":         { "name": "Nut Oils",         "nameLv": "Riekstu eļļas",       "active": true },
-    "essential-oils":   { "name": "Essential Oils",   "nameLv": "Ēteriskās eļļas",     "active": true },
-    "sulfates":         { "name": "Sulfates/SLS",     "nameLv": "Sulfāti/SLS",         "active": true },
-    "ammonia":          { "name": "Ammonia",          "nameLv": "Amonjaks",            "active": true },
-    "propylene-glycol": { "name": "Propylene Glycol", "nameLv": "Propilēnglikols",     "active": true }
+    "latex": {
+      "name": "Latex",
+      "nameLv": "Latekss",
+      "active": true
+    },
+    "fragrance": {
+      "name": "Fragrances",
+      "nameLv": "Smaržvielas",
+      "active": true
+    },
+    "ppd": {
+      "name": "PPD (Hair Dye)",
+      "nameLv": "PPD (matu krāsa)",
+      "active": true
+    },
+    "nut-oils": {
+      "name": "Nut Oils",
+      "nameLv": "Riekstu eļļas",
+      "active": true
+    },
+    "essential-oils": {
+      "name": "Essential Oils",
+      "nameLv": "Ēteriskās eļļas",
+      "active": true
+    },
+    "sulfates": {
+      "name": "Sulfates/SLS",
+      "nameLv": "Sulfāti/SLS",
+      "active": true
+    },
+    "ammonia": {
+      "name": "Ammonia",
+      "nameLv": "Amonjaks",
+      "active": true
+    },
+    "propylene-glycol": {
+      "name": "Propylene Glycol",
+      "nameLv": "Propilēnglikols",
+      "active": true
+    }
   },
   "business": {
     "name": "THRONE",
@@ -44,5 +149,116 @@
     "instagram": "",
     "facebook": "",
     "whatsapp": "37120000000"
+  },
+  "cloudinary": {
+    "cloudName": "",
+    "uploadPreset": ""
+  },
+  "content": {
+    "hero": {
+      "image": "https://images.unsplash.com/photo-1585747860019-024e2e33d14b?auto=format&fit=crop&w=1920&q=80",
+      "subtitleEn": "Premium Grooming Studio",
+      "subtitleLv": "Premium kopšanas studija",
+      "taglineEn": "Where Kings Are Made",
+      "taglineLv": "Kur top karaļi"
+    },
+    "about": {
+      "image": "https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=800&q=80",
+      "titleEn": "Not Just a Haircut.",
+      "titleLv": "Ne tikai frizūra.",
+      "titleEmEn": "An Experience.",
+      "titleEmLv": "Pieredze.",
+      "text1En": "At Throne, we believe every man deserves a moment of precision, care, and transformation. Our master barbers combine timeless techniques with modern artistry to craft looks that command respect.",
+      "text1Lv": "Throne mēs ticam, ka katrs vīrietis ir pelnījis precizitātes, rūpju un pārvērtību brīdi. Mūsu meistari apvieno laika pārbaudītas tehnikas ar modernu mākslu.",
+      "text2En": "From the moment you sit in our chair, you're not just a client — you're royalty. Premium products, skilled hands, and an atmosphere built for those who appreciate the finer things.",
+      "text2Lv": "No brīža, kad apsēžaties mūsu krēslā, jūs neesat tikai klients — jūs esat karalis. Premium produkti, prasīgas rokas un atmosfēra tiem, kas novērtē labāko.",
+      "statClients": 2847,
+      "statYears": 10,
+      "statRating": "5.0"
+    },
+    "masters": [
+      {
+        "id": "marcus",
+        "photo": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80",
+        "name": "Marcus Reid",
+        "roleEn": "Senior Barber • 8 years",
+        "roleLv": "Vecākais bārberis • 8 gadi",
+        "bioEn": "Specializes in classic cuts and hot towel shaves. Known for his precision fades and attention to detail.",
+        "bioLv": "Specializējas klasiskos griezumos un karsto dvieļu skūšanā. Pazīstams ar precīzām pārejām un uzmanību detaļām."
+      },
+      {
+        "id": "alex",
+        "photo": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=500&q=80",
+        "name": "Alex Stone",
+        "roleEn": "Master Barber • 5 years",
+        "roleLv": "Meistars bārberis • 5 gadi",
+        "bioEn": "Creative stylist who brings modern trends to life. Expert in textured crops and beard sculpting.",
+        "bioLv": "Radošs stilists, kas iedzīvina modernas tendences. Eksperts teksturētos griezumos un bārdas veidošanā."
+      },
+      {
+        "id": "daniel",
+        "photo": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=500&q=80",
+        "name": "Daniel Cruz",
+        "roleEn": "Style Expert • 3 years",
+        "roleLv": "Stila eksperts • 3 gadi",
+        "bioEn": "Young talent with a sharp eye for design. Specializes in hair art, creative patterns and modern styling.",
+        "bioLv": "Jauns talants ar asu dizaina izjūtu. Specializējas matu mākslā, radošos rakstos un modernā stilizēšanā."
+      }
+    ],
+    "gallery": [
+      {
+        "image": "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=600&q=80",
+        "label": "Precision Fade"
+      },
+      {
+        "image": "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=600&q=80",
+        "label": "Beard Work"
+      },
+      {
+        "image": "https://images.unsplash.com/photo-1622286342621-4bd786c2447c?auto=format&fit=crop&w=600&q=80",
+        "label": "Classic Cut"
+      },
+      {
+        "image": "https://images.unsplash.com/photo-1493256338651-d82f7acb2b38?auto=format&fit=crop&w=600&q=80",
+        "label": "The Studio"
+      },
+      {
+        "image": "https://images.unsplash.com/photo-1521490683712-35a1cb235d1c?auto=format&fit=crop&w=600&q=80",
+        "label": "Hair Design"
+      },
+      {
+        "image": "https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=600&q=80",
+        "label": "Hot Towel Ritual"
+      }
+    ],
+    "reviews": [
+      {
+        "textEn": "Absolutely the best barbershop experience I've ever had. The attention to detail is unmatched. Marcus took his time and made sure every line was perfect.",
+        "textLv": "Absolūti labākā barbershop pieredze manā dzīvē. Uzmanība detaļām ir nepārspējama. Marcus veltīja laiku un pārliecinājās, ka katra līnija ir perfekta.",
+        "name": "James K.",
+        "avatar": "J",
+        "metaEn": "Regular client · 2 years",
+        "metaLv": "Pastāvīgs klients · 2 gadi",
+        "stars": 5
+      },
+      {
+        "textEn": "The Full Throne package is worth every cent. Hot towel shave, the beard work, everything was premium. This isn't a barbershop — it's an experience.",
+        "textLv": "Pilnais Throne pakete ir katra centa vērts. Karstā dvieļa skūšanās, bārdas darbs, viss bija premium. Šis nav barbershop — tā ir pieredze.",
+        "name": "David R.",
+        "avatar": "D",
+        "metaEn": "Regular client · 1 year",
+        "metaLv": "Pastāvīgs klients · 1 gads",
+        "stars": 5
+      },
+      {
+        "textEn": "Finally found a place that understands what a proper gentleman's cut should look like. The vibe, the skill, the products — all top tier. Won't go anywhere else.",
+        "textLv": "Beidzot atradu vietu, kas saprot kā izskatās īstam džentlmeņa griezumam jāizskatās. Atmosfēra, prasmes, produkti — viss augstākajā līmenī.",
+        "name": "Michael S.",
+        "avatar": "M",
+        "metaEn": "Regular client · 6 months",
+        "metaLv": "Pastāvīgs klients · 6 mēneši",
+        "stars": 5
+      }
+    ]
   }
 }

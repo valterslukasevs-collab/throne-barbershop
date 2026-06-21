@@ -87,6 +87,27 @@
         .field-group label { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--sub); margin-bottom: 6px; }
         .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
         .field-full { margin-bottom: 16px; }
+        textarea.input { resize: vertical; font-family: inherit; }
+
+        .cnt-master-block { border-bottom: 1px solid var(--border); padding: 16px 0; }
+        .cnt-master-block:last-child { border-bottom: none; }
+        .cnt-master-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .cnt-master-head strong { font-size: 13px; color: var(--accent); }
+
+        .gallery-row { display: grid; grid-template-columns: 1fr 180px 40px; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); }
+        .gallery-row:last-child { border-bottom: none; }
+
+        .review-block { border-bottom: 1px solid var(--border); padding: 16px 0; }
+        .review-block:last-child { border-bottom: none; }
+        .review-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .review-head strong { font-size: 13px; color: var(--accent); }
+
+        .upload-row { display: flex; gap: 8px; align-items: center; }
+        .upload-row .input { flex: 1; }
+        .upload-btn { padding: 10px 16px; background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; color: var(--accent); font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: 0.2s; }
+        .upload-btn:hover { border-color: var(--accent); background: rgba(200,169,110,0.1); }
+        .upload-btn.uploading { opacity: 0.5; pointer-events: none; }
+        .upload-hidden { display: none; }
 
         .toast { position: fixed; bottom: 24px; right: 24px; background: var(--success); color: #fff; padding: 14px 24px; border-radius: 8px; font-size: 13px; font-weight: 500; transform: translateY(100px); opacity: 0; transition: 0.3s; z-index: 100; }
         .toast.show { transform: translateY(0); opacity: 1; }
@@ -147,8 +168,10 @@
         <div class="tab" data-tab="masters">Masters</div>
         <div class="tab" data-tab="schedule">Schedule</div>
         <div class="tab" data-tab="allergens">Allergens</div>
+        <div class="tab" data-tab="content">Content</div>
         <div class="tab" data-tab="business">Business</div>
         <div class="tab" data-tab="social">Social</div>
+        <div class="tab" data-tab="settings">Settings</div>
     </div>
 
     <div class="content">
@@ -237,6 +260,101 @@
             </div>
         </div>
 
+        <!-- CONTENT -->
+        <div class="panel" id="panel-content">
+
+            <!-- Hero -->
+            <div class="card">
+                <div class="card-header"><h3 data-i18n="cnt_hero">Hero Section</h3></div>
+                <div class="field-full">
+                    <label data-i18n="cnt_hero_img">Hero Background Image URL</label>
+                    <div class="upload-row">
+                        <input class="input" type="url" id="cntHeroImage" placeholder="https://...">
+                        <label class="upload-btn" data-upload-target="cntHeroImage">&#8686; Upload<input type="file" accept="image/*" class="upload-hidden"></label>
+                    </div>
+                </div>
+                <div class="field-row">
+                    <div><label data-i18n="cnt_subtitle_en">Subtitle (EN)</label><input class="input" type="text" id="cntSubtitleEn"></div>
+                    <div><label data-i18n="cnt_subtitle_lv">Subtitle (LV)</label><input class="input" type="text" id="cntSubtitleLv"></div>
+                </div>
+                <div class="field-row">
+                    <div><label data-i18n="cnt_tagline_en">Tagline (EN)</label><input class="input" type="text" id="cntTaglineEn"></div>
+                    <div><label data-i18n="cnt_tagline_lv">Tagline (LV)</label><input class="input" type="text" id="cntTaglineLv"></div>
+                </div>
+            </div>
+
+            <!-- About -->
+            <div class="card">
+                <div class="card-header"><h3 data-i18n="cnt_about">About Section</h3></div>
+                <div class="field-full">
+                    <label data-i18n="cnt_about_img">About Image URL</label>
+                    <div class="upload-row">
+                        <input class="input" type="url" id="cntAboutImage" placeholder="https://...">
+                        <label class="upload-btn" data-upload-target="cntAboutImage">&#8686; Upload<input type="file" accept="image/*" class="upload-hidden"></label>
+                    </div>
+                </div>
+                <div class="field-row">
+                    <div><label data-i18n="cnt_about_title_en">Title (EN)</label><input class="input" type="text" id="cntAboutTitleEn"></div>
+                    <div><label data-i18n="cnt_about_title_lv">Title (LV)</label><input class="input" type="text" id="cntAboutTitleLv"></div>
+                </div>
+                <div class="field-row">
+                    <div><label data-i18n="cnt_about_em_en">Title Italic (EN)</label><input class="input" type="text" id="cntAboutEmEn"></div>
+                    <div><label data-i18n="cnt_about_em_lv">Title Italic (LV)</label><input class="input" type="text" id="cntAboutEmLv"></div>
+                </div>
+                <div class="field-full">
+                    <label data-i18n="cnt_text1_en">Paragraph 1 (EN)</label>
+                    <textarea class="input" id="cntText1En" rows="3"></textarea>
+                </div>
+                <div class="field-full">
+                    <label data-i18n="cnt_text1_lv">Paragraph 1 (LV)</label>
+                    <textarea class="input" id="cntText1Lv" rows="3"></textarea>
+                </div>
+                <div class="field-full">
+                    <label data-i18n="cnt_text2_en">Paragraph 2 (EN)</label>
+                    <textarea class="input" id="cntText2En" rows="3"></textarea>
+                </div>
+                <div class="field-full">
+                    <label data-i18n="cnt_text2_lv">Paragraph 2 (LV)</label>
+                    <textarea class="input" id="cntText2Lv" rows="3"></textarea>
+                </div>
+                <div class="field-row">
+                    <div><label data-i18n="cnt_stat_clients">Clients Count</label><input class="input" type="number" id="cntStatClients"></div>
+                    <div><label data-i18n="cnt_stat_years">Years Experience</label><input class="input" type="number" id="cntStatYears"></div>
+                </div>
+                <div class="field-full">
+                    <label data-i18n="cnt_stat_rating">Google Rating</label>
+                    <input class="input" type="text" id="cntStatRating" placeholder="5.0">
+                </div>
+            </div>
+
+            <!-- Masters Content -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 data-i18n="cnt_masters">Masters Profiles</h3>
+                    <button class="btn btn-accent btn-sm" id="addContentMasterBtn">+ Add</button>
+                </div>
+                <div id="contentMastersList"></div>
+            </div>
+
+            <!-- Gallery -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 data-i18n="cnt_gallery">Gallery</h3>
+                    <button class="btn btn-accent btn-sm" id="addGalleryBtn">+ Add</button>
+                </div>
+                <div id="galleryList"></div>
+            </div>
+
+            <!-- Reviews -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 data-i18n="cnt_reviews">Reviews</h3>
+                    <button class="btn btn-accent btn-sm" id="addReviewBtn">+ Add</button>
+                </div>
+                <div id="reviewsList"></div>
+            </div>
+        </div>
+
         <!-- BUSINESS INFO -->
         <div class="panel" id="panel-business">
             <div class="card">
@@ -275,6 +393,42 @@
                     <label>WhatsApp</label>
                     <input class="input" type="text" id="bizWhatsapp" placeholder="37120000000">
                 </div>
+            </div>
+        </div>
+
+        <!-- SETTINGS -->
+        <div class="panel" id="panel-settings">
+            <div class="card">
+                <div class="card-header">
+                    <h3 data-i18n="settings_title">Settings</h3>
+                </div>
+                <p style="font-size:12px;color:var(--sub);margin-bottom:20px" data-i18n="cloud_desc">Cloudinary is used for photo uploads. Create a free account at cloudinary.com, then enter your Cloud Name and create an unsigned Upload Preset.</p>
+                <div class="field-row">
+                    <div>
+                        <label>Cloudinary Cloud Name</label>
+                        <input class="input" type="text" id="cloudName" placeholder="your-cloud-name">
+                    </div>
+                    <div>
+                        <label>Upload Preset (unsigned)</label>
+                        <input class="input" type="text" id="cloudPreset" placeholder="your-preset">
+                    </div>
+                </div>
+            </div>
+            <div class="card" style="margin-top:20px">
+                <div class="card-header">
+                    <h3 data-i18n="change_password_title">Change Admin Password</h3>
+                </div>
+                <div class="field-row">
+                    <div>
+                        <label data-i18n="current_password">Current Password</label>
+                        <input class="input" type="password" id="currentPassword" autocomplete="current-password">
+                    </div>
+                    <div>
+                        <label data-i18n="new_password">New Password (min 8 chars)</label>
+                        <input class="input" type="password" id="newPassword" autocomplete="new-password" minlength="8">
+                    </div>
+                </div>
+                <button class="btn btn-outline" id="changePasswordBtn" style="margin-top:12px" data-i18n="change_password_btn">Change Password</button>
             </div>
         </div>
 

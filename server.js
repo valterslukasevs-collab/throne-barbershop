@@ -330,7 +330,15 @@ async function sendEmail(to, subject, html) {
 }
 
 // ─── EMAIL TEMPLATES ───
+function getBusinessInfo() {
+    try {
+        const data = loadData();
+        return data.business || {};
+    } catch { return {}; }
+}
+
 function emailConfirmation(b) {
+    const biz = getBusinessInfo();
     return `
     <div style="font-family:'Helvetica',sans-serif;max-width:520px;margin:0 auto;background:#0a0a0a;color:#f5f0eb;padding:40px;border-radius:16px">
         <div style="text-align:center;margin-bottom:30px">
@@ -353,12 +361,13 @@ function emailConfirmation(b) {
             <p style="font-size:13px;color:#888;margin-bottom:8px">You will receive reminders:</p>
             <p style="font-size:12px;color:#666">📩 24 hours before &nbsp;|&nbsp; 📩 1 hour before</p>
         </div>
-        <p style="text-align:center;margin-top:24px;font-size:11px;color:#444">123 King Street, City Center &nbsp;|&nbsp; +371 20 000 000</p>
+        <p style="text-align:center;margin-top:24px;font-size:11px;color:#444">${sanitizeHtml(biz.address || '123 King Street')} &nbsp;|&nbsp; ${sanitizeHtml(biz.phone || '+371 20 000 000')}</p>
         <p style="text-align:center;margin-top:8px;font-size:10px;color:#333">THRONE — Where Kings Are Made 👑</p>
     </div>`;
 }
 
 function emailReminder(b, timeLabel) {
+    const biz = getBusinessInfo();
     return `
     <div style="font-family:'Helvetica',sans-serif;max-width:520px;margin:0 auto;background:#0a0a0a;color:#f5f0eb;padding:40px;border-radius:16px">
         <div style="text-align:center;margin-bottom:24px">
@@ -375,12 +384,13 @@ function emailReminder(b, timeLabel) {
                 <tr style="border-top:1px solid rgba(255,255,255,0.06)"><td style="padding:8px 0;color:#888;font-size:11px;text-transform:uppercase">Time</td><td style="padding:8px 0;text-align:right;color:#C8A96E;font-weight:bold">${b.time}</td></tr>
             </table>
         </div>
-        <p style="text-align:center;margin-top:20px;font-size:13px;color:#888">📍 123 King Street, City Center</p>
+        <p style="text-align:center;margin-top:20px;font-size:13px;color:#888">📍 ${sanitizeHtml(biz.address || '123 King Street')}</p>
         <p style="text-align:center;margin-top:4px;font-size:11px;color:#444">Please arrive on time! 👑</p>
     </div>`;
 }
 
 function emailReceipt(b) {
+    const biz = getBusinessInfo();
     const receiptId = Date.now().toString(36).toUpperCase();
     return `
     <div style="font-family:'Helvetica',sans-serif;max-width:520px;margin:0 auto;background:#0a0a0a;color:#f5f0eb;padding:40px;border-radius:16px">
@@ -406,7 +416,7 @@ function emailReceipt(b) {
         </div>
         <p style="text-align:center;margin-top:24px;font-size:12px;color:#888">Thank you for visiting THRONE!</p>
         <p style="text-align:center;margin-top:4px;font-size:11px;color:#555">We hope to see you again soon 👑</p>
-        <p style="text-align:center;margin-top:16px;font-size:9px;color:#333">123 King Street, City Center &nbsp;|&nbsp; hello@throne.com</p>
+        <p style="text-align:center;margin-top:16px;font-size:9px;color:#333">${sanitizeHtml(biz.address || '123 King Street')} &nbsp;|&nbsp; ${sanitizeHtml(biz.email || 'hello@throne.com')}</p>
     </div>`;
 }
 
@@ -438,17 +448,124 @@ function logBooking(booking) {
 const DEMO_MODE = (process.env.DEMO_MODE || 'true') === 'true';
 
 // ─── ADMIN CONFIG ───
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'throne2026';
+const crypto = require('crypto');
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || '';
+const TOKEN_TTL = 24 * 3600000; // 24 hours
 const adminSessions = new Map();
 
+// Password hashing with PBKDF2 (no external deps)
+const HASH_PATH = path.join(__dirname, '.admin_hash');
+
+function hashPassword(password) {
+    const salt = crypto.randomBytes(16).toString('hex');
+    const hash = crypto.pbkdf2Sync(password, salt, 100000, 64, 'sha512').toString('hex');
+    return salt + ':' + hash;
+}
+
+function verifyPassword(password, stored) {
+    const [salt, hash] = stored.split(':');
+    if (!salt || !hash) return false;
+    const verify = crypto.pbkdf2Sync(password, salt, 100000, 64, 'sha512').toString('hex');
+    return crypto.timingSafeEqual(Buffer.from(hash, 'hex'), Buffer.from(verify, 'hex'));
+}
+
+function getAdminHash() {
+    try { return fs.readFileSync(HASH_PATH, 'utf8').trim(); } catch { return ''; }
+}
+
+function initAdminPassword() {
+    const existing = getAdminHash();
+    if (existing) return;
+    if (!ADMIN_PASSWORD) {
+        console.log('  ⚠️  No ADMIN_PASSWORD set and no hash file — admin login disabled');
+        return;
+    }
+    const hashed = hashPassword(ADMIN_PASSWORD);
+    fs.writeFileSync(HASH_PATH, hashed);
+    console.log('  ✅ Admin password hashed and saved to .admin_hash');
+}
+initAdminPassword();
+
+// Brute-force protection for admin login
+const loginAttempts = new Map();
+const LOGIN_MAX_ATTEMPTS = 5;
+const LOGIN_LOCKOUT_MS = 15 * 60000; // 15 min lockout
+
+function isLoginLocked(ip) {
+    const entry = loginAttempts.get(ip);
+    if (!entry) return false;
+    if (entry.lockedUntil && Date.now() < entry.lockedUntil) return true;
+    if (entry.lockedUntil && Date.now() >= entry.lockedUntil) {
+        loginAttempts.delete(ip);
+        return false;
+    }
+    return false;
+}
+
+function recordLoginFailure(ip) {
+    let entry = loginAttempts.get(ip) || { count: 0 };
+    entry.count++;
+    if (entry.count >= LOGIN_MAX_ATTEMPTS) {
+        entry.lockedUntil = Date.now() + LOGIN_LOCKOUT_MS;
+        console.log(`  🔒 Admin login locked for IP ${ip} (${LOGIN_MAX_ATTEMPTS} failed attempts)`);
+    }
+    loginAttempts.set(ip, entry);
+}
+
+function clearLoginFailures(ip) {
+    loginAttempts.delete(ip);
+}
+
 function generateToken() {
-    return require('crypto').randomBytes(32).toString('hex');
+    return crypto.randomBytes(32).toString('hex');
 }
 
 function isAdminAuth(req) {
     const auth = req.headers['authorization'];
     if (!auth || !auth.startsWith('Bearer ')) return false;
-    return adminSessions.has(auth.slice(7));
+    const token = auth.slice(7);
+    const session = adminSessions.get(token);
+    if (!session) return false;
+    if (Date.now() - session.created > TOKEN_TTL) {
+        adminSessions.delete(token);
+        return false;
+    }
+    return true;
+}
+
+// Clean up expired tokens every hour
+setInterval(() => {
+    const now = Date.now();
+    for (const [token, session] of adminSessions) {
+        if (now - session.created > TOKEN_TTL) adminSessions.delete(token);
+    }
+}, 3600000);
+
+// ─── ADMIN DATA VALIDATION ───
+function validateAdminData(data) {
+    const errors = [];
+    if (typeof data !== 'object' || data === null || Array.isArray(data)) {
+        return ['Data must be an object'];
+    }
+    const allowedTopKeys = ['services', 'masters', 'schedule', 'allergens', 'business', 'social', 'cloudinary', 'content'];
+    for (const key of Object.keys(data)) {
+        if (!allowedTopKeys.includes(key)) errors.push(`Unknown top-level key: ${key}`);
+    }
+    if (data.services && typeof data.services !== 'object') errors.push('services must be an object');
+    if (data.masters && typeof data.masters !== 'object') errors.push('masters must be an object');
+    if (data.schedule && typeof data.schedule !== 'object') errors.push('schedule must be an object');
+    if (data.content) {
+        if (typeof data.content !== 'object') errors.push('content must be an object');
+        if (data.content.masters && !Array.isArray(data.content.masters)) errors.push('content.masters must be an array');
+        if (data.content.gallery && !Array.isArray(data.content.gallery)) errors.push('content.gallery must be an array');
+        if (data.content.reviews && !Array.isArray(data.content.reviews)) errors.push('content.reviews must be an array');
+        if (data.content.masters && data.content.masters.length > 50) errors.push('Too many masters (max 50)');
+        if (data.content.gallery && data.content.gallery.length > 100) errors.push('Too many gallery items (max 100)');
+        if (data.content.reviews && data.content.reviews.length > 100) errors.push('Too many reviews (max 100)');
+    }
+    const jsonStr = JSON.stringify(data);
+    if (jsonStr.length > 200000) errors.push('Data too large (max 200KB)');
+    return errors;
 }
 
 // ─── DATA FILE ───
@@ -542,13 +659,13 @@ const server = http.createServer(async (req, res) => {
     // ── Security Headers (per OWASP/NIST CSF PR.DS-10) ──
     res.setHeader('Access-Control-Allow-Origin', ALLOWED_ORIGIN);
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('X-Frame-Options', 'DENY');
     res.setHeader('X-XSS-Protection', '1; mode=block');
     res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
     res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), payment=()');
-    res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com https://www.google-analytics.com data:; connect-src 'self' https://www.google-analytics.com; frame-src https://www.google.com; frame-ancestors 'none'");
+    res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com https://res.cloudinary.com https://www.google-analytics.com data:; connect-src 'self' https://www.google-analytics.com https://api.cloudinary.com; frame-src https://www.google.com; frame-ancestors 'none'");
     res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
     if (req.method === 'OPTIONS') { res.writeHead(204); return res.end(); }
 
@@ -621,20 +738,71 @@ const server = http.createServer(async (req, res) => {
 
     // ── API: Admin Login ──
     if (req.method === 'POST' && parsed.pathname === '/api/admin/login') {
+        const clientIp = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.socket.remoteAddress;
+        if (isLoginLocked(clientIp)) {
+            res.writeHead(429, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ status: 'error', message: 'Too many attempts. Try again in 15 minutes.' }));
+        }
         let body = '';
         req.on('data', c => { body += c; if (body.length > 1024) req.destroy(); });
         req.on('end', () => {
             try {
                 const { password } = JSON.parse(body);
-                if (password === ADMIN_PASSWORD) {
+                if (!password || typeof password !== 'string') {
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    return res.end(JSON.stringify({ status: 'error', message: 'Invalid request' }));
+                }
+                const storedHash = getAdminHash();
+                if (!storedHash) {
+                    res.writeHead(503, { 'Content-Type': 'application/json' });
+                    return res.end(JSON.stringify({ status: 'error', message: 'Admin not configured' }));
+                }
+                if (verifyPassword(password, storedHash)) {
+                    clearLoginFailures(clientIp);
                     const token = generateToken();
                     adminSessions.set(token, { created: Date.now() });
                     res.writeHead(200, { 'Content-Type': 'application/json' });
                     res.end(JSON.stringify({ status: 'ok', token }));
                 } else {
+                    recordLoginFailure(clientIp);
                     res.writeHead(401, { 'Content-Type': 'application/json' });
                     res.end(JSON.stringify({ status: 'error', message: 'Wrong password' }));
                 }
+            } catch {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ status: 'error', message: 'Invalid request' }));
+            }
+        });
+        return;
+    }
+
+    // ── API: Admin — Change Password ──
+    if (req.method === 'POST' && parsed.pathname === '/api/admin/change-password') {
+        if (!isAdminAuth(req)) { res.writeHead(401); return res.end('Unauthorized'); }
+        let body = '';
+        req.on('data', c => { body += c; if (body.length > 1024) req.destroy(); });
+        req.on('end', () => {
+            try {
+                const { currentPassword, newPassword } = JSON.parse(body);
+                if (!currentPassword || !newPassword || typeof newPassword !== 'string') {
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    return res.end(JSON.stringify({ status: 'error', message: 'Invalid request' }));
+                }
+                if (newPassword.length < 8) {
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    return res.end(JSON.stringify({ status: 'error', message: 'Password must be at least 8 characters' }));
+                }
+                const storedHash = getAdminHash();
+                if (!verifyPassword(currentPassword, storedHash)) {
+                    res.writeHead(401, { 'Content-Type': 'application/json' });
+                    return res.end(JSON.stringify({ status: 'error', message: 'Current password is wrong' }));
+                }
+                const newHash = hashPassword(newPassword);
+                fs.writeFileSync(HASH_PATH, newHash);
+                adminSessions.clear();
+                console.log('  🔑 Admin password changed');
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ status: 'ok', message: 'Password changed. Please log in again.' }));
             } catch {
                 res.writeHead(400, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ status: 'error', message: 'Invalid request' }));
@@ -659,6 +827,11 @@ const server = http.createServer(async (req, res) => {
         req.on('end', () => {
             try {
                 const data = JSON.parse(body);
+                const errors = validateAdminData(data);
+                if (errors.length > 0) {
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    return res.end(JSON.stringify({ status: 'error', message: 'Validation failed', errors }));
+                }
                 saveData(data);
                 res.writeHead(200, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ status: 'ok' }));
@@ -681,8 +854,9 @@ const server = http.createServer(async (req, res) => {
     // ── API: Public — Get Services/Masters/Schedule for booking page ──
     if (req.method === 'GET' && parsed.pathname === '/api/data') {
         const data = loadData();
+        const { cloudinary, ...publicData } = data;
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        return res.end(JSON.stringify(data));
+        return res.end(JSON.stringify(publicData));
     }
 
     // ── Static files ──
@@ -695,7 +869,7 @@ const server = http.createServer(async (req, res) => {
     }
     // Block access to sensitive files
     const basename = path.basename(resolved).toLowerCase();
-    if (basename === '.env' || basename === '.env.example' || basename === '.gitignore' || basename === 'bookings.csv' || basename === 'data.json') {
+    if (['.env', '.env.example', '.gitignore', 'bookings.csv', 'data.json', '.admin_hash', 'server.js', 'package.json', 'package-lock.json'].includes(basename)) {
         res.writeHead(403);
         return res.end('403 Forbidden');
     }

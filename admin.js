@@ -1,5 +1,5 @@
 var token = localStorage.getItem('throne_admin_token') || '';
-var appData = { services: {}, masters: {}, schedule: {}, allergens: {}, business: {}, social: {} };
+var appData = { services: {}, masters: {}, schedule: {}, allergens: {}, business: {}, social: {}, content: {} };
 var adminLang = localStorage.getItem('throne_admin_lang') || 'en';
 
 var DAY_LABELS = {
@@ -18,7 +18,31 @@ var I18N = {
         lbl_phone: 'Phone', lbl_address: 'Address', lbl_wa_num: 'WhatsApp Number',
         status_past: 'Past', status_upcoming: 'Upcoming', status_today: 'Today',
         stat_total: 'Total Bookings', stat_upcoming: 'Upcoming', stat_today: 'Today', stat_revenue: 'Total Revenue',
-        saved: 'Changes saved!', error_saving: 'Error saving'
+        saved: 'Changes saved!', error_saving: 'Error saving',
+        cnt_hero: 'Hero Section', cnt_hero_img: 'Hero Background Image URL',
+        cnt_subtitle_en: 'Subtitle (EN)', cnt_subtitle_lv: 'Subtitle (LV)',
+        cnt_tagline_en: 'Tagline (EN)', cnt_tagline_lv: 'Tagline (LV)',
+        cnt_about: 'About Section', cnt_about_img: 'About Image URL',
+        cnt_about_title_en: 'Title (EN)', cnt_about_title_lv: 'Title (LV)',
+        cnt_about_em_en: 'Title Italic (EN)', cnt_about_em_lv: 'Title Italic (LV)',
+        cnt_text1_en: 'Paragraph 1 (EN)', cnt_text1_lv: 'Paragraph 1 (LV)',
+        cnt_text2_en: 'Paragraph 2 (EN)', cnt_text2_lv: 'Paragraph 2 (LV)',
+        cnt_stat_clients: 'Clients Count', cnt_stat_years: 'Years Experience',
+        cnt_stat_rating: 'Google Rating',
+        cnt_masters: 'Masters Profiles', cnt_gallery: 'Gallery', cnt_reviews: 'Reviews',
+        cnt_photo: 'Photo URL', cnt_role_en: 'Role (EN)', cnt_role_lv: 'Role (LV)',
+        cnt_bio_en: 'Bio (EN)', cnt_bio_lv: 'Bio (LV)',
+        cnt_review_en: 'Review (EN)', cnt_review_lv: 'Review (LV)',
+        cnt_reviewer: 'Reviewer Name', cnt_avatar: 'Avatar Letter',
+        cnt_meta_en: 'Meta (EN)', cnt_meta_lv: 'Meta (LV)', cnt_stars: 'Stars',
+        settings_title: 'Settings',
+        cloud_desc: 'Cloudinary is used for photo uploads. Create a free account at cloudinary.com, then enter your Cloud Name and create an unsigned Upload Preset.',
+        change_password_title: 'Change Admin Password',
+        current_password: 'Current Password',
+        new_password: 'New Password (min 8 chars)',
+        change_password_btn: 'Change Password',
+        password_changed: 'Password changed! Please log in again.',
+        password_error: 'Error changing password'
     },
     lv: {
         bookings_title: 'Pēdējie pieraksti', services_title: 'Pakalpojumi un cenas', masters_title: 'Meistari',
@@ -30,7 +54,31 @@ var I18N = {
         lbl_phone: 'Telefons', lbl_address: 'Adrese', lbl_wa_num: 'WhatsApp numurs',
         status_past: 'Pagājis', status_upcoming: 'Gaidāms', status_today: 'Šodien',
         stat_total: 'Kopā pieraksti', stat_upcoming: 'Gaidāmie', stat_today: 'Šodien', stat_revenue: 'Kopējie ieņēmumi',
-        saved: 'Izmaiņas saglabātas!', error_saving: 'Kļūda saglabājot'
+        saved: 'Izmaiņas saglabātas!', error_saving: 'Kļūda saglabājot',
+        cnt_hero: 'Hero sekcija', cnt_hero_img: 'Hero fona attēla URL',
+        cnt_subtitle_en: 'Apakšvirsraksts (EN)', cnt_subtitle_lv: 'Apakšvirsraksts (LV)',
+        cnt_tagline_en: 'Sauklis (EN)', cnt_tagline_lv: 'Sauklis (LV)',
+        cnt_about: 'Par mums sekcija', cnt_about_img: 'Par mums attēla URL',
+        cnt_about_title_en: 'Virsraksts (EN)', cnt_about_title_lv: 'Virsraksts (LV)',
+        cnt_about_em_en: 'Virsraksts kursīvā (EN)', cnt_about_em_lv: 'Virsraksts kursīvā (LV)',
+        cnt_text1_en: '1. rindkopa (EN)', cnt_text1_lv: '1. rindkopa (LV)',
+        cnt_text2_en: '2. rindkopa (EN)', cnt_text2_lv: '2. rindkopa (LV)',
+        cnt_stat_clients: 'Klientu skaits', cnt_stat_years: 'Gadi pieredzē',
+        cnt_stat_rating: 'Google vērtējums',
+        cnt_masters: 'Meistaru profili', cnt_gallery: 'Galerija', cnt_reviews: 'Atsauksmes',
+        cnt_photo: 'Foto URL', cnt_role_en: 'Loma (EN)', cnt_role_lv: 'Loma (LV)',
+        cnt_bio_en: 'Bio (EN)', cnt_bio_lv: 'Bio (LV)',
+        cnt_review_en: 'Atsauksme (EN)', cnt_review_lv: 'Atsauksme (LV)',
+        cnt_reviewer: 'Vērtētāja vārds', cnt_avatar: 'Avatāra burts',
+        cnt_meta_en: 'Meta (EN)', cnt_meta_lv: 'Meta (LV)', cnt_stars: 'Zvaigznes',
+        settings_title: 'Iestatījumi',
+        cloud_desc: 'Cloudinary tiek izmantots foto augšupielādei. Izveidojiet bezmaksas kontu cloudinary.com, tad ievadiet Cloud Name un izveidojiet unsigned Upload Preset.',
+        change_password_title: 'Mainīt administratora paroli',
+        current_password: 'Pašreizējā parole',
+        new_password: 'Jaunā parole (min 8 simboli)',
+        change_password_btn: 'Mainīt paroli',
+        password_changed: 'Parole nomainīta! Lūdzu, piesakieties vēlreiz.',
+        password_error: 'Kļūda mainot paroli'
     }
 };
 
@@ -81,6 +129,13 @@ async function showDashboard() {
         if (!appData.allergens) appData.allergens = {};
         if (!appData.business) appData.business = {};
         if (!appData.social) appData.social = {};
+        if (!appData.cloudinary) appData.cloudinary = {};
+        if (!appData.content) appData.content = {};
+        if (!appData.content.hero) appData.content.hero = {};
+        if (!appData.content.about) appData.content.about = {};
+        if (!appData.content.masters) appData.content.masters = [];
+        if (!appData.content.gallery) appData.content.gallery = [];
+        if (!appData.content.reviews) appData.content.reviews = [];
     } catch(e) { logout(); return; }
 
     document.getElementById('loginScreen').style.display = 'none';
@@ -93,6 +148,8 @@ async function showDashboard() {
     renderAllergens();
     renderBusiness();
     renderSocial();
+    renderSettings();
+    renderContent();
     loadBookings();
 }
 
@@ -264,6 +321,206 @@ function collectSocial() {
     };
 }
 
+// ── SETTINGS (Cloudinary) ──
+function renderSettings() {
+    var cl = appData.cloudinary || {};
+    document.getElementById('cloudName').value = cl.cloudName || '';
+    document.getElementById('cloudPreset').value = cl.uploadPreset || '';
+}
+
+function collectSettings() {
+    appData.cloudinary = {
+        cloudName: document.getElementById('cloudName').value.trim(),
+        uploadPreset: document.getElementById('cloudPreset').value.trim()
+    };
+}
+
+function uploadToCloudinary(file, targetInput) {
+    var cl = appData.cloudinary || {};
+    var cloudName = document.getElementById('cloudName').value.trim() || cl.cloudName;
+    var preset = document.getElementById('cloudPreset').value.trim() || cl.uploadPreset;
+
+    if (!cloudName || !preset) {
+        showToast('Set Cloudinary settings in Settings tab first');
+        return;
+    }
+
+    var btn = targetInput.closest('.upload-row') ? targetInput.closest('.upload-row').querySelector('.upload-btn') : null;
+    if (btn) { btn.classList.add('uploading'); btn.textContent = 'Uploading...'; }
+
+    var fd = new FormData();
+    fd.append('file', file);
+    fd.append('upload_preset', preset);
+
+    fetch('https://api.cloudinary.com/v1_1/' + cloudName + '/image/upload', {
+        method: 'POST',
+        body: fd
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+        if (data.secure_url) {
+            targetInput.value = data.secure_url;
+            showToast('Photo uploaded!');
+        } else {
+            showToast('Upload error: ' + (data.error ? data.error.message : 'unknown'));
+        }
+    })
+    .catch(function(e) {
+        showToast('Upload failed: ' + e.message);
+    })
+    .finally(function() {
+        if (btn) { btn.classList.remove('uploading'); btn.innerHTML = '&#8686; Upload<input type="file" accept="image/*" class="upload-hidden">'; }
+    });
+}
+
+// ── CONTENT ──
+function renderContent() {
+    var c = appData.content || {};
+    var h = c.hero || {};
+    var a = c.about || {};
+
+    document.getElementById('cntHeroImage').value = h.image || '';
+    document.getElementById('cntSubtitleEn').value = h.subtitleEn || '';
+    document.getElementById('cntSubtitleLv').value = h.subtitleLv || '';
+    document.getElementById('cntTaglineEn').value = h.taglineEn || '';
+    document.getElementById('cntTaglineLv').value = h.taglineLv || '';
+
+    document.getElementById('cntAboutImage').value = a.image || '';
+    document.getElementById('cntAboutTitleEn').value = a.titleEn || '';
+    document.getElementById('cntAboutTitleLv').value = a.titleLv || '';
+    document.getElementById('cntAboutEmEn').value = a.titleEmEn || '';
+    document.getElementById('cntAboutEmLv').value = a.titleEmLv || '';
+    document.getElementById('cntText1En').value = a.text1En || '';
+    document.getElementById('cntText1Lv').value = a.text1Lv || '';
+    document.getElementById('cntText2En').value = a.text2En || '';
+    document.getElementById('cntText2Lv').value = a.text2Lv || '';
+    document.getElementById('cntStatClients').value = a.statClients || 0;
+    document.getElementById('cntStatYears').value = a.statYears || 0;
+    document.getElementById('cntStatRating').value = a.statRating || '5.0';
+
+    renderContentMasters();
+    renderGallery();
+    renderReviews();
+}
+
+function renderContentMasters() {
+    var el = document.getElementById('contentMastersList');
+    el.innerHTML = '';
+    var masters = appData.content.masters || [];
+    masters.forEach(function(m, i) {
+        var div = document.createElement('div');
+        div.className = 'cnt-master-block';
+        div.dataset.idx = i;
+        div.innerHTML =
+            '<div class="cnt-master-head"><strong>' + (m.name || 'Master ' + (i+1)) + '</strong><button class="btn btn-danger btn-sm" data-remove-cnt-master="' + i + '">&#10005;</button></div>' +
+            '<div class="field-full"><label>' + t('cnt_photo') + '</label><div class="upload-row"><input class="input" type="url" value="' + esc(m.photo) + '" data-field="photo"><label class="upload-btn">&#8686; Upload<input type="file" accept="image/*" class="upload-hidden" data-upload-field="photo"></label></div></div>' +
+            '<div class="field-row"><div><label>Name</label><input class="input" type="text" value="' + esc(m.name) + '" data-field="name"></div>' +
+            '<div><label>ID</label><input class="input" type="text" value="' + esc(m.id) + '" data-field="id"></div></div>' +
+            '<div class="field-row"><div><label>' + t('cnt_role_en') + '</label><input class="input" type="text" value="' + esc(m.roleEn) + '" data-field="roleEn"></div>' +
+            '<div><label>' + t('cnt_role_lv') + '</label><input class="input" type="text" value="' + esc(m.roleLv) + '" data-field="roleLv"></div></div>' +
+            '<div class="field-full"><label>' + t('cnt_bio_en') + '</label><textarea class="input" rows="2" data-field="bioEn">' + esc(m.bioEn) + '</textarea></div>' +
+            '<div class="field-full"><label>' + t('cnt_bio_lv') + '</label><textarea class="input" rows="2" data-field="bioLv">' + esc(m.bioLv) + '</textarea></div>';
+        el.appendChild(div);
+    });
+}
+
+function renderGallery() {
+    var el = document.getElementById('galleryList');
+    el.innerHTML = '';
+    var gallery = appData.content.gallery || [];
+    gallery.forEach(function(g, i) {
+        var div = document.createElement('div');
+        div.className = 'gallery-row';
+        div.dataset.idx = i;
+        div.innerHTML =
+            '<div class="upload-row" style="grid-column:1"><input class="input" type="url" value="' + esc(g.image) + '" data-field="image" placeholder="Image URL"><label class="upload-btn">&#8686; Upload<input type="file" accept="image/*" class="upload-hidden" data-upload-field="image"></label></div>' +
+            '<input class="input" type="text" value="' + esc(g.label) + '" data-field="label" placeholder="Label">' +
+            '<button class="btn btn-danger btn-sm" data-remove-gallery="' + i + '">&#10005;</button>';
+        el.appendChild(div);
+    });
+}
+
+function renderReviews() {
+    var el = document.getElementById('reviewsList');
+    el.innerHTML = '';
+    var reviews = appData.content.reviews || [];
+    reviews.forEach(function(r, i) {
+        var div = document.createElement('div');
+        div.className = 'review-block';
+        div.dataset.idx = i;
+        div.innerHTML =
+            '<div class="review-head"><strong>' + esc(r.name || 'Review ' + (i+1)) + '</strong><button class="btn btn-danger btn-sm" data-remove-review="' + i + '">&#10005;</button></div>' +
+            '<div class="field-full"><label>' + t('cnt_review_en') + '</label><textarea class="input" rows="2" data-field="textEn">' + esc(r.textEn) + '</textarea></div>' +
+            '<div class="field-full"><label>' + t('cnt_review_lv') + '</label><textarea class="input" rows="2" data-field="textLv">' + esc(r.textLv) + '</textarea></div>' +
+            '<div class="field-row"><div><label>' + t('cnt_reviewer') + '</label><input class="input" type="text" value="' + esc(r.name) + '" data-field="name"></div>' +
+            '<div><label>' + t('cnt_avatar') + '</label><input class="input" type="text" value="' + esc(r.avatar) + '" data-field="avatar" maxlength="1" style="width:60px"></div></div>' +
+            '<div class="field-row"><div><label>' + t('cnt_meta_en') + '</label><input class="input" type="text" value="' + esc(r.metaEn) + '" data-field="metaEn"></div>' +
+            '<div><label>' + t('cnt_meta_lv') + '</label><input class="input" type="text" value="' + esc(r.metaLv) + '" data-field="metaLv"></div></div>' +
+            '<div class="field-full"><label>' + t('cnt_stars') + '</label><input class="input" type="number" value="' + (r.stars || 5) + '" data-field="stars" min="1" max="5" style="width:80px"></div>';
+        el.appendChild(div);
+    });
+}
+
+function esc(s) { return String(s || '').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function collectContent() {
+    appData.content.hero = {
+        image: document.getElementById('cntHeroImage').value,
+        subtitleEn: document.getElementById('cntSubtitleEn').value,
+        subtitleLv: document.getElementById('cntSubtitleLv').value,
+        taglineEn: document.getElementById('cntTaglineEn').value,
+        taglineLv: document.getElementById('cntTaglineLv').value
+    };
+    appData.content.about = {
+        image: document.getElementById('cntAboutImage').value,
+        titleEn: document.getElementById('cntAboutTitleEn').value,
+        titleLv: document.getElementById('cntAboutTitleLv').value,
+        titleEmEn: document.getElementById('cntAboutEmEn').value,
+        titleEmLv: document.getElementById('cntAboutEmLv').value,
+        text1En: document.getElementById('cntText1En').value,
+        text1Lv: document.getElementById('cntText1Lv').value,
+        text2En: document.getElementById('cntText2En').value,
+        text2Lv: document.getElementById('cntText2Lv').value,
+        statClients: Number(document.getElementById('cntStatClients').value),
+        statYears: Number(document.getElementById('cntStatYears').value),
+        statRating: document.getElementById('cntStatRating').value
+    };
+
+    appData.content.masters = [];
+    document.querySelectorAll('#contentMastersList .cnt-master-block').forEach(function(block) {
+        appData.content.masters.push({
+            id: block.querySelector('[data-field="id"]').value,
+            photo: block.querySelector('[data-field="photo"]').value,
+            name: block.querySelector('[data-field="name"]').value,
+            roleEn: block.querySelector('[data-field="roleEn"]').value,
+            roleLv: block.querySelector('[data-field="roleLv"]').value,
+            bioEn: block.querySelector('[data-field="bioEn"]').value,
+            bioLv: block.querySelector('[data-field="bioLv"]').value
+        });
+    });
+
+    appData.content.gallery = [];
+    document.querySelectorAll('#galleryList .gallery-row').forEach(function(row) {
+        appData.content.gallery.push({
+            image: row.querySelector('[data-field="image"]').value,
+            label: row.querySelector('[data-field="label"]').value
+        });
+    });
+
+    appData.content.reviews = [];
+    document.querySelectorAll('#reviewsList .review-block').forEach(function(block) {
+        appData.content.reviews.push({
+            textEn: block.querySelector('[data-field="textEn"]').value,
+            textLv: block.querySelector('[data-field="textLv"]').value,
+            name: block.querySelector('[data-field="name"]').value,
+            avatar: block.querySelector('[data-field="avatar"]').value,
+            metaEn: block.querySelector('[data-field="metaEn"]').value,
+            metaLv: block.querySelector('[data-field="metaLv"]').value,
+            stars: Number(block.querySelector('[data-field="stars"]').value)
+        });
+    });
+}
+
 // ── BOOKINGS ──
 var allBookings = [];
 
@@ -343,6 +600,8 @@ async function saveAll() {
     collectAllergens();
     collectBusiness();
     collectSocial();
+    collectSettings();
+    collectContent();
 
     var res = await fetch('/api/admin/data', {
         method: 'POST',
@@ -366,6 +625,31 @@ document.getElementById('loginPass').addEventListener('keydown', function(e) { i
 document.getElementById('saveBtn').addEventListener('click', saveAll);
 document.getElementById('logoutBtn').addEventListener('click', logout);
 document.getElementById('exportCsvBtn').addEventListener('click', exportCsv);
+
+document.getElementById('changePasswordBtn').addEventListener('click', async function() {
+    var cur = document.getElementById('currentPassword').value;
+    var nw = document.getElementById('newPassword').value;
+    if (!cur || !nw) { showToast('Fill in both fields'); return; }
+    if (nw.length < 8) { showToast('Password must be at least 8 characters'); return; }
+    try {
+        var res = await fetch('/api/admin/change-password', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+            body: JSON.stringify({ currentPassword: cur, newPassword: nw })
+        });
+        var data = await res.json();
+        if (res.ok) {
+            showToast(t('password_changed'));
+            setTimeout(function() { logout(); }, 1500);
+        } else {
+            showToast(data.message || t('password_error'));
+        }
+    } catch(e) {
+        showToast(t('password_error'));
+    }
+    document.getElementById('currentPassword').value = '';
+    document.getElementById('newPassword').value = '';
+});
 
 document.getElementById('addServiceBtn').addEventListener('click', function() {
     appData.services['svc-' + Date.now()] = { name: '', nameLv: '', price: 0, duration: 30, active: true };
@@ -394,6 +678,64 @@ document.getElementById('allergensList').addEventListener('click', function(e) {
     if (!btn) return;
     delete appData.allergens[btn.dataset.removeAllergen];
     renderAllergens();
+});
+
+document.getElementById('addContentMasterBtn').addEventListener('click', function() {
+    appData.content.masters.push({ id: 'master-' + Date.now(), photo: '', name: '', roleEn: '', roleLv: '', bioEn: '', bioLv: '' });
+    renderContentMasters();
+});
+
+document.getElementById('addGalleryBtn').addEventListener('click', function() {
+    appData.content.gallery.push({ image: '', label: '' });
+    renderGallery();
+});
+
+document.getElementById('addReviewBtn').addEventListener('click', function() {
+    appData.content.reviews.push({ textEn: '', textLv: '', name: '', avatar: '', metaEn: '', metaLv: '', stars: 5 });
+    renderReviews();
+});
+
+document.getElementById('contentMastersList').addEventListener('click', function(e) {
+    var btn = e.target.closest('[data-remove-cnt-master]');
+    if (!btn) return;
+    collectContent();
+    appData.content.masters.splice(Number(btn.dataset.removeCntMaster), 1);
+    renderContentMasters();
+});
+
+document.getElementById('galleryList').addEventListener('click', function(e) {
+    var btn = e.target.closest('[data-remove-gallery]');
+    if (!btn) return;
+    collectContent();
+    appData.content.gallery.splice(Number(btn.dataset.removeGallery), 1);
+    renderGallery();
+});
+
+document.getElementById('reviewsList').addEventListener('click', function(e) {
+    var btn = e.target.closest('[data-remove-review]');
+    if (!btn) return;
+    collectContent();
+    appData.content.reviews.splice(Number(btn.dataset.removeReview), 1);
+    renderReviews();
+});
+
+// ── UPLOAD HANDLER ──
+document.addEventListener('change', function(e) {
+    if (!e.target.matches('.upload-hidden')) return;
+    var file = e.target.files[0];
+    if (!file) return;
+
+    var targetId = e.target.closest('[data-upload-target]');
+    var targetInput;
+    if (targetId) {
+        targetInput = document.getElementById(targetId.dataset.uploadTarget);
+    } else {
+        var row = e.target.closest('.upload-row');
+        if (row) targetInput = row.querySelector('.input[type="url"], .input[data-field]');
+    }
+
+    if (targetInput) uploadToCloudinary(file, targetInput);
+    e.target.value = '';
 });
 
 // ── INIT ──

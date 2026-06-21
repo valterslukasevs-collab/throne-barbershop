@@ -838,4 +838,177 @@ document.addEventListener('DOMContentLoaded', () => {
         setLanguage(currentLang);
     }
 
+    /* ────────────────────────────────────────
+       DYNAMIC CONTENT FROM ADMIN
+       ──────────────────────────────────────── */
+    fetch('/api/data')
+        .then(r => r.ok ? r.json() : null)
+        .then(data => {
+            if (!data || !data.content) return;
+            const c = data.content;
+
+            // Hero
+            if (c.hero) {
+                const heroImg = document.querySelector('.hero__bg-img');
+                if (heroImg && c.hero.image) heroImg.src = c.hero.image;
+
+                const subtitle = document.querySelector('.hero__subtitle [data-en]');
+                if (subtitle) {
+                    if (c.hero.subtitleEn) subtitle.dataset.en = c.hero.subtitleEn;
+                    if (c.hero.subtitleLv) subtitle.dataset.lv = c.hero.subtitleLv;
+                    subtitle.textContent = currentLang === 'lv' ? c.hero.subtitleLv : c.hero.subtitleEn;
+                }
+
+                const tagline = document.querySelector('.hero__tagline');
+                if (tagline) {
+                    if (c.hero.taglineEn) tagline.dataset.en = c.hero.taglineEn;
+                    if (c.hero.taglineLv) tagline.dataset.lv = c.hero.taglineLv;
+                    tagline.textContent = currentLang === 'lv' ? c.hero.taglineLv : c.hero.taglineEn;
+                }
+            }
+
+            // About
+            if (c.about) {
+                const aboutImg = document.querySelector('.about__image');
+                if (aboutImg && c.about.image) aboutImg.src = c.about.image;
+
+                const titleSpan = document.querySelector('.about__title [data-en]');
+                if (titleSpan) {
+                    if (c.about.titleEn) titleSpan.dataset.en = c.about.titleEn;
+                    if (c.about.titleLv) titleSpan.dataset.lv = c.about.titleLv;
+                    titleSpan.textContent = currentLang === 'lv' ? c.about.titleLv : c.about.titleEn;
+                }
+                const titleEm = document.querySelector('.about__title em');
+                if (titleEm) {
+                    if (c.about.titleEmEn) titleEm.dataset.en = c.about.titleEmEn;
+                    if (c.about.titleEmLv) titleEm.dataset.lv = c.about.titleEmLv;
+                    titleEm.textContent = currentLang === 'lv' ? c.about.titleEmLv : c.about.titleEmEn;
+                }
+
+                const texts = document.querySelectorAll('.about__text');
+                if (texts[0]) {
+                    if (c.about.text1En) texts[0].dataset.en = c.about.text1En;
+                    if (c.about.text1Lv) texts[0].dataset.lv = c.about.text1Lv;
+                    texts[0].textContent = currentLang === 'lv' ? c.about.text1Lv : c.about.text1En;
+                }
+                if (texts[1]) {
+                    if (c.about.text2En) texts[1].dataset.en = c.about.text2En;
+                    if (c.about.text2Lv) texts[1].dataset.lv = c.about.text2Lv;
+                    texts[1].textContent = currentLang === 'lv' ? c.about.text2Lv : c.about.text2En;
+                }
+
+                const statNums = document.querySelectorAll('.about__stats .stat__number');
+                if (statNums[0] && c.about.statClients) statNums[0].dataset.count = c.about.statClients;
+                if (statNums[1] && c.about.statYears) statNums[1].dataset.count = c.about.statYears;
+                if (statNums[2] && c.about.statRating) statNums[2].textContent = c.about.statRating;
+            }
+
+            // Masters
+            if (c.masters && c.masters.length) {
+                const cards = document.querySelectorAll('.master-card');
+                c.masters.forEach((m, i) => {
+                    if (!cards[i]) return;
+                    const img = cards[i].querySelector('.master-card__photo img');
+                    if (img && m.photo) img.src = m.photo;
+
+                    const name = cards[i].querySelector('.master-card__name');
+                    if (name && m.name) name.textContent = m.name;
+
+                    const role = cards[i].querySelector('.master-card__role');
+                    if (role) {
+                        if (m.roleEn) role.dataset.en = m.roleEn;
+                        if (m.roleLv) role.dataset.lv = m.roleLv;
+                        role.textContent = currentLang === 'lv' ? m.roleLv : m.roleEn;
+                    }
+
+                    const bio = cards[i].querySelector('.master-card__bio');
+                    if (bio) {
+                        if (m.bioEn) bio.dataset.en = m.bioEn;
+                        if (m.bioLv) bio.dataset.lv = m.bioLv;
+                        bio.textContent = currentLang === 'lv' ? m.bioLv : m.bioEn;
+                    }
+
+                    const bookBtn = cards[i].querySelector('.master-card__overlay .btn');
+                    if (bookBtn && m.id) bookBtn.href = 'book.html?master=' + m.id;
+                });
+            }
+
+            // Gallery
+            if (c.gallery && c.gallery.length) {
+                const items = document.querySelectorAll('.gallery__item');
+                c.gallery.forEach((g, i) => {
+                    if (!items[i]) return;
+                    const img = items[i].querySelector('.gallery__img');
+                    if (img && g.image) img.src = g.image;
+                    const label = items[i].querySelector('.gallery__label');
+                    if (label && g.label) label.textContent = g.label;
+                    if (img && g.label) img.alt = g.label;
+                });
+            }
+
+            // Reviews
+            if (c.reviews && c.reviews.length) {
+                const reviews = document.querySelectorAll('.review');
+                c.reviews.forEach((r, i) => {
+                    if (!reviews[i]) return;
+                    const text = reviews[i].querySelector('.review__text');
+                    if (text) {
+                        if (r.textEn) text.dataset.en = '"' + r.textEn + '"';
+                        if (r.textLv) text.dataset.lv = '"' + r.textLv + '"';
+                        text.textContent = currentLang === 'lv' ? '"' + r.textLv + '"' : '"' + r.textEn + '"';
+                    }
+
+                    const name = reviews[i].querySelector('.review__name');
+                    if (name && r.name) name.textContent = r.name;
+
+                    const avatar = reviews[i].querySelector('.review__avatar');
+                    if (avatar && r.avatar) avatar.textContent = r.avatar;
+
+                    const meta = reviews[i].querySelector('.review__meta');
+                    if (meta) {
+                        if (r.metaEn) meta.dataset.en = r.metaEn;
+                        if (r.metaLv) meta.dataset.lv = r.metaLv;
+                        meta.textContent = currentLang === 'lv' ? r.metaLv : r.metaEn;
+                    }
+                });
+            }
+
+            // Business info — contact section
+            if (data.business) {
+                const b = data.business;
+                const addr = document.querySelector('.contact__item .contact__value');
+                if (addr && b.address) addr.innerHTML = b.address.replace(/, /g, '<br>');
+
+                const phone = document.querySelectorAll('.contact__item');
+                phone.forEach(item => {
+                    const label = item.querySelector('.contact__label');
+                    if (!label) return;
+                    const val = item.querySelector('.contact__value');
+                    if (label.textContent === 'Phone' || label.dataset.en === 'Phone') {
+                        if (val && b.phone) val.textContent = b.phone;
+                    }
+                    if (label.textContent === 'Email') {
+                        if (val && b.email) val.textContent = b.email;
+                    }
+                });
+
+                const footerTag = document.querySelector('.footer__tagline');
+                if (footerTag) {
+                    if (b.taglineEn) footerTag.dataset.en = b.taglineEn;
+                    if (b.taglineLv) footerTag.dataset.lv = b.taglineLv;
+                    footerTag.textContent = currentLang === 'lv' ? b.taglineLv : b.taglineEn;
+                }
+            }
+
+            // WhatsApp button
+            if (data.social && data.social.whatsapp) {
+                const waBtn = document.querySelector('.whatsapp-btn');
+                if (waBtn) waBtn.href = 'https://wa.me/' + data.social.whatsapp;
+            }
+
+            // Re-apply language after content loaded
+            if (currentLang !== 'en') setLanguage(currentLang);
+        })
+        .catch(() => {});
+
 });
